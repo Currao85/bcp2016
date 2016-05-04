@@ -1,80 +1,99 @@
 FORMAT: 1A
 HOST: http://polls.apiblueprint.org/
 
-# bcp2016
+# BCP
 
 Polls is a simple API allowing consumers to view polls and vote in them.
 
-## Questions Collection [/questions]
+#######################
+# Tree Structure
+#######################
 
-### List All Questions [GET]
+API related to the tree management.
+
+## Tree Node collection
+
+### List nodes [GET /organizations/{type}/revisions/{structureTypeId}/nodes{?page,sort,pageSize}]
+Returns the revision organization structure tree with assigned people.
+
+**Released on May 04**
+
++ Parameters
+  + structureTypeId: BCP (string) - Structure type to filter for
+  + revisionId: 1 (required) - id of the requested revision or "active"
+  + page: 1 (optional, number) - The page of results to return
+  + sort: firstName (optional) - Sorting order
+  + pageSize: 25 (optional, number) - Amount of results to return
 
 + Response 200 (application/json)
+    + Attributes (object)
+        + results (array[Node1, Node2, Node3, Node4, Node5, Node6], required) - array of nodes
+        + Include PaginationDataTree
 
-        [
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
-                    }
-                ]
-            }
-        ]
+## Tree Node
 
-### Create a New Question [POST]
+### Node info [GET /organizations/{structureTypeId}/revisions/{revisionId}/nodes/COM/{nodeId}]
+Returns the info for the node of the given id for the the nodeType COM
 
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
++ Parameters
+  + structureTypeId: BCP (string) - Structure type to filter for
+  + revisionId: 1 (required) - id of the requested revision or "active"
+  + nodeId: 1 (required) - id of the requested revision or "active"
+  + page: 1 (optional, number) - The page of results to return
+  + sort: firstName (optional) - Sorting order
+  + pageSize: 25 (optional, number) - Amount of results to return
 
-+ Request (application/json)
++ Response 200 (application/json)
+    + Attributes (object)
+        + results (array[], required) - array of committee people
+        + Include PaginationDataTree
 
-        {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
-        }
+# Data Structures
 
-+ Response 201 (application/json)
+## PaginationDataTree (object)
++ paginationData (object, required) - Informations required for pagination
+    + count: 6 (number,required) - total number of resources
+    + pageNum: 1 (number, required) - slice of resources returned
+    + pageSize: 25 (number, required) - size of the slice
 
-    + Headers
+## Node1 (object)
++ id: 1 (required, number)
++ parentId (number)
++ nodeType: `ORG` (required, string)
++ code: `BCORG001` (required, string)
++ description: `BC ORGANIZATION` (required, string)
 
-            Location: /questions/2
+## Node2 (object)
++ id: 2 (required, number)
++ parentId: 1 (required, number)
++ nodeType: `CRI` (required, string)
++ code: `C09.1.01` (required, string)
++ description: `INCIDENT MANAGEMENT` (required, string)
 
-    + Body
+## Node3 (object)
++ id: 3 (required, number)
++ parentId: 1 (required, number)
++ nodeType: `CRI` (required, string)
++ code: `C16.1` (required, string)
++ description: `MONITORING & CONTROL` (required, string)
 
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
-            }
+## Node4 (object)
++ id: 4 (required, number)
++ parentId: 2 (required, number)
++ nodeType: `SIT` (required, string)
++ code: `ST000003` (required, string)
++ description: `VERONA` (required, string)
+
+## Node5 (object)
++ id: 5 (required, number)
++ parentId: 2 (required, number)
++ nodeType: `SIT` (required, string)
++ code: `ST000005` (required, string)
++ description: `MUNCHEN, AM TUCHERPARK 12` (required, string)
+
+## Node6 (object)
++ id: 6 (required, number)
++ parentId: 4 (required, number)
++ nodeType: `ET` (required, string)
++ code: `ST000005` (required, string)
++ description: `EMERGENCY TEAM 67 - INCIDENT MANAGEMENT` (required, string)

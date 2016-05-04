@@ -6,12 +6,12 @@ HOST: http://polls.apiblueprint.org/
 Polls is a simple API allowing consumers to view polls and vote in them.
 
 #######################
-# Tree Structure
+# Group Tree Structure
 #######################
 
 API related to the tree management.
 
-## Tree Node collection
+## Tree Node collection [/organizations/{type}/revisions/{structureTypeId}/nodes]
 
 ### List nodes [GET /organizations/{type}/revisions/{structureTypeId}/nodes{?page,sort,pageSize}]
 Returns the revision organization structure tree with assigned people.
@@ -19,18 +19,18 @@ Returns the revision organization structure tree with assigned people.
 **Released on May 04**
 
 + Parameters
-  + structureTypeId: BCP (string) - Structure type to filter for
-  + revisionId: 1 (required) - id of the requested revision or "active"
-  + page: 1 (optional, number) - The page of results to return
-  + sort: firstName (optional) - Sorting order
-  + pageSize: 25 (optional, number) - Amount of results to return
+    + structureTypeId: BCP (string) - Structure type to filter for
+    + revisionId: 1 (required) - id of the requested revision or "active"
+    + page: 1 (optional, number) - The page of results to return
+    + sort: firstName (optional) - Sorting order
+    + pageSize: 25 (optional, number) - Amount of results to return
 
 + Response 200 (application/json)
     + Attributes (object)
         + results (array[Node1, Node2, Node3, Node4, Node5, Node6], required) - array of nodes
         + Include PaginationDataTree
 
-## Tree Node
+## Tree Node [/organizations/{structureTypeId}/revisions/{revisionId}/nodes/{nodeId}]
 
 ### Node info [GET /organizations/{structureTypeId}/revisions/{revisionId}/nodes/COM/{nodeId}]
 Returns the info for the node of the given id for the the nodeType COM

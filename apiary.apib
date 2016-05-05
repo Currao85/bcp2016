@@ -81,7 +81,7 @@ Returns the info for the node of the given id for the the nodeType ET
         + Include PaginationDataTree3
 
 ### Create Tree Node COM [POST /organizations/{structureTypeId}/revisions/{revisionId}/nodes/COM]
-Create a new node into the tree.
+Create a new COM node into the tree.
 
 + Parameters
     + structureTypeId: BCP (string) - Structure type to filter for
@@ -96,9 +96,133 @@ Create a new node into the tree.
 
     + Headers
 
-            Location: /organizations/{structureTypeId}/revisions/{revisionId}/nodes/1
+            Location: /organizations/{structureTypeId}/revisions/{revisionId}/nodes/10
 
     + Attributes (Node2b)
+
++ Response 400
+    Returned when the required resource cannot be found.
+
+    + Body
+
++ Response 500
+    Returned when a generic error occours.
+
+    + Body
+
+### Create Tree Node ORG [POST /organizations/{structureTypeId}/revisions/{revisionId}/nodes/ORG]
+Create a new ORG node into the tree.
+
++ Parameters
+    + structureTypeId: BCP (string) - Structure type to filter for
+    + revisionId: 1 (required) - id of the requested revision or "active"
+    
++ Request (application/json)
+  + Attributes
+      + code: `BCORG002` (string, required)
+      + description: `BC ORGANIZATION 2` (required)
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /organizations/{structureTypeId}/revisions/{revisionId}/nodes/11
+
+    + Attributes (Node3b)
+
++ Response 400
+    Returned when the required resource cannot be found.
+
+    + Body
+
++ Response 500
+    Returned when a generic error occours.
+
+    + Body
+    
+### Create Tree Node CRI [POST /organizations/{structureTypeId}/revisions/{revisionId}/nodes/CRI]
+Create a new CRI node into the tree.
+
++ Parameters
+    + structureTypeId: BCP (string) - Structure type to filter for
+    + revisionId: 1 (required) - id of the requested revision or "active"
+    
++ Request (application/json)
+  + Attributes
+      + code: `C09.1.02` (string, required)
+      + description: `INCIDENT MANAGEMENT 2` (required)
+      + note: `notes` (required)
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /organizations/{structureTypeId}/revisions/{revisionId}/nodes/12
+
+    + Attributes (Node4b)
+
++ Response 400
+    Returned when the required resource cannot be found.
+
+    + Body
+
++ Response 500
+    Returned when a generic error occours.
+
+    + Body
+
+### Create Tree Node SIT [POST /organizations/{structureTypeId}/revisions/{revisionId}/nodes/SIT]
+Create a new SIT node into the tree.
+
++ Parameters
+    + structureTypeId: BCP (string) - Structure type to filter for
+    + revisionId: 1 (required) - id of the requested revision or "active"
+    
++ Request (application/json)
+  + Attributes
+      + code: `ST000006` (string, required)
+      + description: `VERONA 2` (required)
+      + address: `via verona 33` (required)
+      + country: `VERONA` (required)
+      + telephone: `0000 111111` (required)
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /organizations/{structureTypeId}/revisions/{revisionId}/nodes/13
+
+    + Attributes (Node6b)
+
++ Response 400
+    Returned when the required resource cannot be found.
+
+    + Body
+
++ Response 500
+    Returned when a generic error occours.
+
+    + Body
+    
+### Create Tree Node ET [POST /organizations/{structureTypeId}/revisions/{revisionId}/nodes/ET]
+Create a new ET node into the tree.
+
++ Parameters
+    + structureTypeId: BCP (string) - Structure type to filter for
+    + revisionId: 1 (required) - id of the requested revision or "active"
+    
++ Request (application/json)
+  + Attributes
+      + code: `ST000006` (string, required)
+      + description: `EMERGENCY TEAM 68 - INCIDENT MANAGEMENT 2` (required)
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /organizations/{structureTypeId}/revisions/{revisionId}/nodes/14
+
+    + Attributes (Node8b)
 
 + Response 400
     Returned when the required resource cannot be found.
@@ -188,7 +312,7 @@ Deletes a node in the tree and, eventually, all the children nodes.
 + description: `BC COMMITTEE` (required, string)
 
 ## Node2b (object)
-+ id: 2 (required, number)
++ id: 10 (required, number)
 + parentId (number)
 + nodeTypeId: `COM` (required, string)
 + code: `CMT00002` (required, string)
@@ -201,12 +325,26 @@ Deletes a node in the tree and, eventually, all the children nodes.
 + code: `BCORG001` (required, string)
 + description: `BC ORGANIZATION` (required, string)
 
+## Node3b (object)
++ id: 11 (required, number)
++ parentId (number)
++ nodeTypeId: `ORG` (required, string)
++ code: `BCORG002` (required, string)
++ description: `BC ORGANIZATION 2` (required, string)
+
 ## Node4 (object)
 + id: 4 (required, number)
 + parentId: 3 (required, number)
 + nodeTypeId: `CRI` (required, string)
 + code: `C09.1.01` (required, string)
 + description: `INCIDENT MANAGEMENT` (required, string)
+
+## Node4b (object)
++ id: 12 (required, number)
++ parentId (required, number)
++ nodeTypeId: `CRI` (required, string)
++ code: `C09.1.02` (required, string)
++ description: `INCIDENT MANAGEMENT 2` (required, string)
 
 ## Node5 (object)
 + id: 5 (required, number)
@@ -222,6 +360,13 @@ Deletes a node in the tree and, eventually, all the children nodes.
 + code: `ST000003` (required, string)
 + description: `VERONA` (required, string)
 
+## Node6b (object)
++ id: 13 (required, number)
++ parentId (required, number)
++ nodeTypeId: `SIT` (required, string)
++ code: `ST000006` (required, string)
++ description: `VERONA 2` (required, string)
+
 ## Node7 (object)
 + id: 7 (required, number)
 + parentId: 4 (required, number)
@@ -235,6 +380,13 @@ Deletes a node in the tree and, eventually, all the children nodes.
 + nodeTypeId: `ET` (required, string)
 + code: `ST000005` (required, string)
 + description: `EMERGENCY TEAM 67 - INCIDENT MANAGEMENT` (required, string)
+
+## Node8b (object)
++ id: 14 (required, number)
++ parentId (required, number)
++ nodeTypeId: `ET` (required, string)
++ code: `ST000006` (required, string)
++ description: `EMERGENCY TEAM 68 - INCIDENT MANAGEMENT 2` (required, string)
 
 ## RoleProfile1 (ProfileListResult)
 + id: 1 (number) - id of the profile

@@ -109,7 +109,7 @@ ET Emergency Team
         + results (array[RoleProfile1, RoleProfile2, RoleProfile3], required) - array of profiles
         + Include PaginationDataTree3
 
-### Create Tree Node COM [POST /organizations/{structureTypeId}/revisions/{revisionId}/nodes/COM]
+### Upsert Tree Node COM [POST /organizations/{structureTypeId}/revisions/{revisionId}/nodes/COM]
 Create a new COM node into the tree.
 
 + Parameters
@@ -117,9 +117,11 @@ Create a new COM node into the tree.
     + revisionId: 1 (required) - id of the requested revision or "active"
     
 + Request (application/json)
-  + Attributes
-      + code: `CMT00002` (string, required)
-      + description: `BC COMMITTEE 2` (required)
+    + Attributes
+        + nodeId (number, optional)
+        + code: `CMT00002` (string, required)
+        + description: `BC COMMITTEE 2` (required)
+        + parentNodeId (number, optional)
 
 + Response 201 (application/json)
 
@@ -139,7 +141,7 @@ Create a new COM node into the tree.
 
     + Body
 
-### Create Tree Node ORG [POST /organizations/{structureTypeId}/revisions/{revisionId}/nodes/ORG]
+### Upsert Tree Node ORG [POST /organizations/{structureTypeId}/revisions/{revisionId}/nodes/ORG]
 Create a new ORG node into the tree.
 
 + Parameters
@@ -147,9 +149,11 @@ Create a new ORG node into the tree.
     + revisionId: 1 (required) - id of the requested revision or "active"
     
 + Request (application/json)
-  + Attributes
-      + code: `BCORG002` (string, required)
-      + description: `BC ORGANIZATION 2` (required)
+    + Attributes
+        + nodeId (number, optional)
+        + code: `BCORG002` (string, required)
+        + description: `BC ORGANIZATION 2` (required)
+        + parentNodeId (number, optional)
 
 + Response 201 (application/json)
 
@@ -169,7 +173,7 @@ Create a new ORG node into the tree.
 
     + Body
     
-### Create Tree Node CRI [POST /organizations/{structureTypeId}/revisions/{revisionId}/nodes/CRI]
+### Upsert Tree Node CRI [POST /organizations/{structureTypeId}/revisions/{revisionId}/nodes/CRI]
 Create a new CRI node into the tree.
 
 + Parameters
@@ -177,10 +181,12 @@ Create a new CRI node into the tree.
     + revisionId: 1 (required) - id of the requested revision or "active"
     
 + Request (application/json)
-  + Attributes
-      + code: `C09.1.02` (string, required)
-      + description: `INCIDENT MANAGEMENT 2` (required)
-      + note: `notes` (required)
+    + Attributes
+        + nodeId (number, optional)
+        + code: `C09.1.02` (string, required)
+        + description: `INCIDENT MANAGEMENT 2` (required)
+        + note: `notes` (required)
+        + parentNodeId (number, optional)
 
 + Response 201 (application/json)
 
@@ -200,7 +206,7 @@ Create a new CRI node into the tree.
 
     + Body
 
-### Create Tree Node SIT [POST /organizations/{structureTypeId}/revisions/{revisionId}/nodes/SIT]
+### Upsert Tree Node SIT [POST /organizations/{structureTypeId}/revisions/{revisionId}/nodes/SIT]
 Create a new SIT node into the tree.
 
 + Parameters
@@ -208,12 +214,14 @@ Create a new SIT node into the tree.
     + revisionId: 1 (required) - id of the requested revision or "active"
     
 + Request (application/json)
-  + Attributes
-      + code: `ST000006` (string, required)
-      + description: `VERONA 2` (required)
-      + address: `via verona 33` (required)
-      + country: `VERONA` (required)
-      + telephone: `0000 111111` (required)
+    + Attributes
+        + nodeId (number, optional)
+        + code: `ST000006` (string, required)
+        + description: `VERONA 2` (required)
+        + address: `via verona 33` (required)
+        + country: `VERONA` (required)
+        + telephone: `0000 111111` (required)
+        + parentNodeId (number, optional)
 
 + Response 201 (application/json)
 
@@ -241,9 +249,11 @@ Create a new ET node into the tree.
     + revisionId: 1 (required) - id of the requested revision or "active"
     
 + Request (application/json)
-  + Attributes
-      + code: `ET000068` (string, required)
-      + description: `EMERGENCY TEAM 68 - INCIDENT MANAGEMENT 2` (required)
+    + Attributes
+        + nodeId (number, optional)
+        + code: `ET000068` (string, required)
+        + description: `EMERGENCY TEAM 68 - INCIDENT MANAGEMENT 2` (required)
+        + parentNodeId (number, optional)
 
 + Response 201 (application/json)
 

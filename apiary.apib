@@ -11,9 +11,9 @@ Polls is a simple API allowing consumers to view polls and vote in them.
 
 API related to the tree management.
 
-## Tree Node collection [/organizations/{type}/revisions/{structureTypeId}/nodes]
+## Tree Node collection [/organizations/{structureTypeId}/revisions/{revisionId}/nodes]
 
-### List nodes [GET /organizations/{type}/revisions/{structureTypeId}/nodes{?page,sort,pageSize}]
+### List nodes [GET /organizations/{structureTypeId}/revisions/{revisionId}/nodes{?page,sort,pageSize}]
 Returns the revision organization structure tree with assigned people.
 
 **Released on May 04**
@@ -32,7 +32,7 @@ Returns the revision organization structure tree with assigned people.
 
 ## Tree Node [/organizations/{structureTypeId}/revisions/{revisionId}/nodes/{nodeId}]
 
-### Node info [GET /organizations/{structureTypeId}/revisions/{revisionId}/nodes/COM/{nodeId}]
+### Node info COM [GET /organizations/{structureTypeId}/revisions/{revisionId}/nodes/COM/{nodeId}{?page,sort,pageSize}]
 Returns the info for the node of the given id for the the nodeType COM
 
 + Parameters
@@ -45,55 +45,138 @@ Returns the info for the node of the given id for the the nodeType COM
 
 + Response 200 (application/json)
     + Attributes (object)
-        + results (array[], required) - array of committee people
+        + results (array[RoleProfile1, RoleProfile2], required) - array of committee people
         + Include PaginationDataTree
 
 # Data Structures
 
 ## PaginationDataTree (object)
 + paginationData (object, required) - Informations required for pagination
-    + count: 6 (number,required) - total number of resources
+    + count: 8 (number,required) - total number of resources
     + pageNum: 1 (number, required) - slice of resources returned
     + pageSize: 25 (number, required) - size of the slice
 
 ## Node1 (object)
 + id: 1 (required, number)
 + parentId (number)
++ nodeType: `BCP` (required, string)
++ code: `BCP` (required, string)
++ description: `BCP` (required, string)
+
+## Node2 (object)
++ id: 2 (required, number)
++ parentId: 1 (number)
++ nodeType: `COM` (required, string)
++ code: `CMT00001` (required, string)
++ description: `BC COMMITTEE` (required, string)
+
+## Node3 (object)
++ id: 3 (required, number)
++ parentId: 1 (number)
 + nodeType: `ORG` (required, string)
 + code: `BCORG001` (required, string)
 + description: `BC ORGANIZATION` (required, string)
 
-## Node2 (object)
-+ id: 2 (required, number)
-+ parentId: 1 (required, number)
+## Node4 (object)
++ id: 4 (required, number)
++ parentId: 3 (required, number)
 + nodeType: `CRI` (required, string)
 + code: `C09.1.01` (required, string)
 + description: `INCIDENT MANAGEMENT` (required, string)
 
-## Node3 (object)
-+ id: 3 (required, number)
-+ parentId: 1 (required, number)
+## Node5 (object)
++ id: 5 (required, number)
++ parentId: 3 (required, number)
 + nodeType: `CRI` (required, string)
 + code: `C16.1` (required, string)
 + description: `MONITORING & CONTROL` (required, string)
 
-## Node4 (object)
-+ id: 4 (required, number)
-+ parentId: 2 (required, number)
+## Node6 (object)
++ id: 6 (required, number)
++ parentId: 4 (required, number)
 + nodeType: `SIT` (required, string)
 + code: `ST000003` (required, string)
 + description: `VERONA` (required, string)
 
-## Node5 (object)
-+ id: 5 (required, number)
-+ parentId: 2 (required, number)
+## Node7 (object)
++ id: 7 (required, number)
++ parentId: 4 (required, number)
 + nodeType: `SIT` (required, string)
 + code: `ST000005` (required, string)
 + description: `MUNCHEN, AM TUCHERPARK 12` (required, string)
 
-## Node6 (object)
-+ id: 6 (required, number)
-+ parentId: 4 (required, number)
+## Node8 (object)
++ id: 8 (required, number)
++ parentId: 6 (required, number)
 + nodeType: `ET` (required, string)
 + code: `ST000005` (required, string)
 + description: `EMERGENCY TEAM 67 - INCIDENT MANAGEMENT` (required, string)
+
+## RoleProfile1 (ProfileDetail)
++ id: 1 (number) - id of the profile
++ nodeType: `CHA`
+
+## RoleProfile2 (ProfileDetail)
++ id: 2 (number) - id of the profile
++ nodeType: `MEM`
+
+## RoleProfile3 (ProfileDetail)
++ id: 3 (number) - id of the profile
++ nodeType: `DEL`
+
+## ProfileBase (object)
++ firstName: `MARIO` (required, string) - First name of the profile. Must be between 2 and 50 chars long.
++ lastName: `BIANCHI` (required, string) - Last name of the profile. Must be between 2 and 50 chars long.
++ email: `mbianchi@acme.it` (required, string) - Email of the profile. Must be a valid email, as specified in RFC2822.
++ profession: `Senior Developer` (string)
++ altInternetAddress: `firstname.lastname@organization2.com` (string) - Must be a valid email, as specified in RFC2822.
++ notesAddress: `indirizzo_notes@aaaaa.it` (string) - Must be a valid email, as specified in RFC2822.
++ userId: `userid` (string) - Username of the profile. If present this field must match with the field used to authenticate on the application server.
++ personalCode: `X123456` (required, string)
++ phone (object)
+    + country: `39` (string)
+    + number: `12345678` (string)
++ mobilePhone (object)
+    + country: `39` (string)
+    + number: `1234567` (string)
++ fax (object)
+    + country: `39` (string)
+    + number: `3904912345678` (string)
+
+## ProfileDetail (ProfileBase)
++ businessUnit: `not used?` (string)
++ jobResponsability: `job responsability` (string)
++ employeeType: `MAI` (required, string) - Code of profile type
++ bluePageCode: `L123456` (required, string)
++ hiringDate: `2016-02-28` (required, string) - Hiring date of the profile. The profile can be found through queries only starting from the specified date.
++ managerRole: `true` (boolean)
++ id: 1 (number)
++ Include ProfileInformations
++ Include ProfilesAddresses
+
+## ProfileInformations (object)
++ informations
+    + expertiseSummary: `expertise summary text`
+    + certification: `certifications text`
+    + generalExperienceBusiness: `business experience text`
+    + generalExperienceIndustry: `industry experience text`
+    + generalExperienceCustomer: `customer experience text`
+    + technicalExperience: `industry experience text`
+    + solutionsProducts: `solutions products text`
+    + communities: `communities text`
+    + businessGoals: `business goals text`
+    + professionalOrganizations: `professional organizations text`
+    + projects: `projects text`
+    + team: `team text`
+
+## ProfilesAddresses (object)
++ addresses
+    + preferred (ProfileAddress) - preferred address of the user, if different from business address.
+    + business (ProfileAddress) - business address of the user.
+
+## ProfileAddress
++ street: Via Nizza 15
++ city: Torino
++ country: Italy
++ zip: 12345
++ locationId: 1 (number)

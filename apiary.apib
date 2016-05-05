@@ -27,57 +27,86 @@ Returns the revision organization structure tree with assigned people.
 
 + Response 200 (application/json)
     + Attributes (object)
-        + results (array[Node1, Node2, Node3, Node4, Node5, Node6], required) - array of nodes
-        + Include PaginationDataTree8
+        + results (array[Node1, Node2, Node3, Node4, Node5, Node6, Node7, Node8, Node9], required) - array of nodes
+        + Include PaginationDataTree9
 
 ## Tree Node [/organizations/{structureTypeId}/revisions/{revisionId}/nodes/{nodeId}]
 
-### Node info COM [GET /organizations/{structureTypeId}/revisions/{revisionId}/nodes/COM/{nodeId}{?page,sort,pageSize}]
-Returns the info for the node of the given id for the the nodeType COM
+### Node info Site [GET /organizations/{structureTypeId}/revisions/{revisionId}/nodes/{nodeId}/site{?page,sort,pageSize}]
+Returns the info for the node of the given id.
+Works only for nodes of following types: 
+SIT Site
 
 + Parameters
     + structureTypeId: BCP (string) - Structure type to filter for
     + revisionId: 1 (required) - id of the requested revision or "active"
     + nodeId: 1 (required) - id of the node
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + results (Site1, required) - a Site
+
++ Response 404
+    Returned when the required resource cannot be found.
+
+    + Body
+
++ Response 500
+    Returned when a generic error occours.
+
+    + Body
+
+### Node info Profile [GET /organizations/{structureTypeId}/revisions/{revisionId}/nodes/{nodeId}/profile]
+Returns the info for the node of the given id.
+Works only for nodes of following types: 
+CHA Chairman
+MEM Member
+DEL Delegate
+CRM Crisis Manager
+BCM BC Manager
+SM  Service Manager
+UM  Unit Manager
+CM  COE Manager
+TL  Team Leader
+TM  Team Member
+
++ Parameters
+    + structureTypeId: BCP (string) - Structure type to filter for
+    + revisionId: 1 (required) - id of the requested revision or "active"
+    + nodeId: 9 (required) - id of the node
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + results (Profile1, required) - a profile
+
++ Response 404
+    Returned when the required resource cannot be found.
+
+    + Body
+
++ Response 500
+    Returned when a generic error occours.
+
+    + Body
+
+### Node info Profile List [GET /organizations/{structureTypeId}/revisions/{revisionId}/nodes/{nodeId}/profilelist{?page,sort,pageSize}]
+Returns the info for the node of the given id.
+Works only for nodes of following types:
+COM Committee
+CRI Criticality
+ET Emergency Team
+
++ Parameters
+    + structureTypeId: BCP (string) - Structure type to filter for
+    + revisionId: 1 (required) - id of the requested revision or "active"
+    + nodeId: 2 (required) - id of the node
     + page: 1 (optional, number) - The page of results to return
     + sort: firstName (optional) - Sorting order
     + pageSize: 25 (optional, number) - Amount of results to return
 
 + Response 200 (application/json)
     + Attributes (object)
-        + results (array[RoleProfile1, RoleProfile2, RoleProfile3], required) - array of people assigned to the committee
-        + Include PaginationDataTree3
-
-### Node info CRI [GET /organizations/{structureTypeId}/revisions/{revisionId}/nodes/CRI/{nodeId}{?page,sort,pageSize}]
-Returns the info for the node of the given id for the the nodeType CRI
-
-+ Parameters
-    + structureTypeId: BCP (string) - Structure type to filter for
-    + revisionId: 1 (required) - id of the requested revision or "active"
-    + nodeId: 1 (required) - id of the node
-    + page: 1 (optional, number) - The page of results to return
-    + sort: firstName (optional) - Sorting order
-    + pageSize: 25 (optional, number) - Amount of results to return
-
-+ Response 200 (application/json)
-    + Attributes (object)
-        + results (array[RoleProfile4, RoleProfile5, RoleProfile6], required) - array of people assigned to the criticality
-        + Include PaginationDataTree3
-
-### Node info ET [GET /organizations/{structureTypeId}/revisions/{revisionId}/nodes/ET/{nodeId}{?page,sort,pageSize}]
-Returns the info for the node of the given id for the the nodeType ET
-
-+ Parameters
-    + structureTypeId: BCP (string) - Structure type to filter for
-    + revisionId: 1 (required) - id of the requested revision or "active"
-    + nodeId: 1 (required) - id of the node
-    + page: 1 (optional, number) - The page of results to return
-    + sort: firstName (optional) - Sorting order
-    + pageSize: 25 (optional, number) - Amount of results to return
-
-+ Response 200 (application/json)
-    + Attributes (object)
-        + results (array[RoleProfile7, RoleProfile8, RoleProfile9], required) - array of people assigned to the emergency team
+        + results (array[RoleProfile1, RoleProfile2, RoleProfile3], required) - array of profiles
         + Include PaginationDataTree3
 
 ### Create Tree Node COM [POST /organizations/{structureTypeId}/revisions/{revisionId}/nodes/COM]
@@ -213,7 +242,7 @@ Create a new ET node into the tree.
     
 + Request (application/json)
   + Attributes
-      + code: `ST000006` (string, required)
+      + code: `ET000068` (string, required)
       + description: `EMERGENCY TEAM 68 - INCIDENT MANAGEMENT 2` (required)
 
 + Response 201 (application/json)
@@ -225,31 +254,6 @@ Create a new ET node into the tree.
     + Attributes (Node8b)
 
 + Response 400
-    Returned when the required resource cannot be found.
-
-    + Body
-
-+ Response 500
-    Returned when a generic error occours.
-
-    + Body
-
-### Assign tree node [PUT /organizations/{structureTypeId}/revisions/{revisionId}/nodes/{nodeId}]
-Assign a node to a parentNode from a specified date.
-
-+ Parameters
-    + structureTypeId: UO (string) - Structure type to filter for
-    + revisionId: 1 or active (required) - id of the requested revision
-    + nodeId: 1 (required) - id of the node
-
-+ Request (application/json)
-  + Attributes
-      + parentNodeId: 1 (number, required)
-      + startDate: `2016-04-05` (required)
-
-+ Response 200 (application/json)
-
-+ Response 404
     Returned when the required resource cannot be found.
 
     + Body
@@ -378,15 +382,26 @@ Deletes a node in the tree and, eventually, all the children nodes.
 + id: 8 (required, number)
 + parentId: 6 (required, number)
 + nodeTypeId: `ET` (required, string)
-+ code: `ST000005` (required, string)
++ code: `ET000067` (required, string)
 + description: `EMERGENCY TEAM 67 - INCIDENT MANAGEMENT` (required, string)
 
 ## Node8b (object)
 + id: 14 (required, number)
 + parentId (required, number)
 + nodeTypeId: `ET` (required, string)
-+ code: `ST000006` (required, string)
++ code: `ET000068` (required, string)
 + description: `EMERGENCY TEAM 68 - INCIDENT MANAGEMENT 2` (required, string)
+
+## Node9 (object)
++ id: 9 (required, number)
++ parentId: 2 (number)
++ nodeTypeId: `CHA` (required, string)
++ code: `CHA` (required, string)
++ description: `LINZI GIOVANNI` (required, string)
+
+## Profile1 (ProfileDetail)
++ id: 1 (number) - id of the profile
++ nodeTypeDescription: `CHA`
 
 ## RoleProfile1 (ProfileListResult)
 + id: 1 (number) - id of the profile
@@ -484,3 +499,11 @@ Deletes a node in the tree and, eventually, all the children nodes.
 + country: Italy
 + zip: 12345
 + locationId: 1 (number)
+
+## Site1 (object)
++ id: 1 (required, number)
++ street: Via Lisbona (string)
++ zip: 12345 (string)
++ city: Padova (string)
++ state: PD (string)
++ country: Italy (string)

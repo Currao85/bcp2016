@@ -273,6 +273,38 @@ Create a new ET node into the tree.
 
     + Body
     
+### Create Tree Node Profile [POST /organizations/{structureTypeId}/revisions/{revisionId}/nodes/{nodeType}]
+Create a new ET node into the tree.
+
++ Parameters
+    + structureTypeId: BCP (string) - Structure type to filter for
+    + revisionId: 1 (required) - id of the requested revision or "active"
+    + nodeType: CHA (required) - the node type (CHA, MEM, DEL, CRM, BCM, SM, UM, CM, TL, TM)
+    
++ Request (application/json)
+    + Attributes
+        + nodeId (number, optional)
+        + profileId: 1 (number, required)
+        + parentNodeId (number, optional)
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /organizations/{structureTypeId}/revisions/{revisionId}/nodes/14
+
+    + Attributes (Node8b)
+
++ Response 400
+    Returned when the required resource cannot be found.
+
+    + Body
+
++ Response 500
+    Returned when a generic error occours.
+
+    + Body
+    
 ### Delete Tree Node [DELETE /organizations/{structureTypeId}/revisions/{revisionId}/nodes/{nodeId}{?recursively,entity,entityRecursively}]
 Deletes a node in the tree and, eventually, all the children nodes.
 

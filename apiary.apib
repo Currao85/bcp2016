@@ -18,8 +18,6 @@ API related to the tree management.
 ### List nodes [GET /organizations/{structureTypeId}/revisions/{revisionId}/nodes{?page,sort,pageSize}]
 Returns the revision organization structure tree with assigned people.
 
-**Released on May 04**
-
 + Parameters
     + structureTypeId: BCP (string) - Structure type to filter for
     + revisionId: 1 (required) - id of the requested revision or "active"
@@ -38,12 +36,12 @@ Returns the revision organization structure tree with assigned people.
 Returns the info for the node of the given id for the the nodeType COM
 
 + Parameters
-  + structureTypeId: BCP (string) - Structure type to filter for
-  + revisionId: 1 (required) - id of the requested revision or "active"
-  + nodeId: 1 (required) - id of the requested revision or "active"
-  + page: 1 (optional, number) - The page of results to return
-  + sort: firstName (optional) - Sorting order
-  + pageSize: 25 (optional, number) - Amount of results to return
+    + structureTypeId: BCP (string) - Structure type to filter for
+    + revisionId: 1 (required) - id of the requested revision or "active"
+    + nodeId: 1 (required) - id of the node
+    + page: 1 (optional, number) - The page of results to return
+    + sort: firstName (optional) - Sorting order
+    + pageSize: 25 (optional, number) - Amount of results to return
 
 + Response 200 (application/json)
     + Attributes (object)
@@ -54,12 +52,12 @@ Returns the info for the node of the given id for the the nodeType COM
 Returns the info for the node of the given id for the the nodeType CRI
 
 + Parameters
-  + structureTypeId: BCP (string) - Structure type to filter for
-  + revisionId: 1 (required) - id of the requested revision or "active"
-  + nodeId: 1 (required) - id of the requested revision or "active"
-  + page: 1 (optional, number) - The page of results to return
-  + sort: firstName (optional) - Sorting order
-  + pageSize: 25 (optional, number) - Amount of results to return
+    + structureTypeId: BCP (string) - Structure type to filter for
+    + revisionId: 1 (required) - id of the requested revision or "active"
+    + nodeId: 1 (required) - id of the node
+    + page: 1 (optional, number) - The page of results to return
+    + sort: firstName (optional) - Sorting order
+    + pageSize: 25 (optional, number) - Amount of results to return
 
 + Response 200 (application/json)
     + Attributes (object)
@@ -70,17 +68,65 @@ Returns the info for the node of the given id for the the nodeType CRI
 Returns the info for the node of the given id for the the nodeType ET
 
 + Parameters
-  + structureTypeId: BCP (string) - Structure type to filter for
-  + revisionId: 1 (required) - id of the requested revision or "active"
-  + nodeId: 1 (required) - id of the requested revision or "active"
-  + page: 1 (optional, number) - The page of results to return
-  + sort: firstName (optional) - Sorting order
-  + pageSize: 25 (optional, number) - Amount of results to return
+    + structureTypeId: BCP (string) - Structure type to filter for
+    + revisionId: 1 (required) - id of the requested revision or "active"
+    + nodeId: 1 (required) - id of the node
+    + page: 1 (optional, number) - The page of results to return
+    + sort: firstName (optional) - Sorting order
+    + pageSize: 25 (optional, number) - Amount of results to return
 
 + Response 200 (application/json)
     + Attributes (object)
         + results (array[RoleProfile7, RoleProfile8, RoleProfile9], required) - array of people assigned to the emergency team
         + Include PaginationDataTree3
+
+### Assign tree node [PUT /organizations/{structureTypeId}/revisions/{revisionId}/nodes/{nodeId}]
+Assign Organization Unit to Parent from a specified date.
+
+
++ Parameters
+    + structureTypeId: UO (string) - Structure type to filter for
+    + revisionId: 1 or active (required) - id of the requested revision
+    + nodeId: 1 (required) - id of the node
+
++ Request (application/json)
+  + Attributes
+      + parentNodeId: 1 (number, required)
+      + startDate: `2016-04-05` (required)
+
++ Response 200 (application/json)
+
++ Response 404
+    Returned when the required resource cannot be found.
+
+    + Body
+
++ Response 500
+    Returned when a generic error occours.
+
+    + Body
+    
+### Delete Tree Node [DELETE /organizations/{structureTypeId}/revisions/{revisionId}/nodes/{nodeId}{?recursively,entity,entityRecursively}]
+
+Deletes a node in the tree and, eventually all the children nodes.
+Does NOT delete the related .
+
++ Parameters
+    + recursively: true (string) - delete children or not
+    + entity: true (string) - delete node info too or not
+    + entityRecursively: true (string) - delete children node info too or not
+
++ Response 204
+
++ Response 404
+    Returned when the required resource cannot be found.
+
+    + Body
+
++ Response 500
+    Returned when a generic error occours.
+
+    + Body
 
 
 

@@ -5,8 +5,10 @@ HOST: http://polls.apiblueprint.org/
 
 Polls is a simple API allowing consumers to view polls and vote in them.
 
+
+
 #######################
-# Group Tree Structure
+# Group Tree Structure - DRAFT
 #######################
 
 API related to the tree management.
@@ -28,7 +30,7 @@ Returns the revision organization structure tree with assigned people.
 + Response 200 (application/json)
     + Attributes (object)
         + results (array[Node1, Node2, Node3, Node4, Node5, Node6], required) - array of nodes
-        + Include PaginationDataTree
+        + Include PaginationDataTree8
 
 ## Tree Node [/organizations/{structureTypeId}/revisions/{revisionId}/nodes/{nodeId}]
 
@@ -45,12 +47,38 @@ Returns the info for the node of the given id for the the nodeType COM
 
 + Response 200 (application/json)
     + Attributes (object)
-        + results (array[RoleProfile1, RoleProfile2], required) - array of committee people
-        + Include PaginationDataTree
+        + results (array[RoleProfile1, RoleProfile2, RoleProfile3], required) - array of people assigned to the committee
+        + Include PaginationDataTree3
 
+### Node info CRI [GET /organizations/{structureTypeId}/revisions/{revisionId}/nodes/CRI/{nodeId}{?page,sort,pageSize}]
+Returns the info for the node of the given id for the the nodeType CRI
+
++ Parameters
+  + structureTypeId: BCP (string) - Structure type to filter for
+  + revisionId: 1 (required) - id of the requested revision or "active"
+  + nodeId: 1 (required) - id of the requested revision or "active"
+  + page: 1 (optional, number) - The page of results to return
+  + sort: firstName (optional) - Sorting order
+  + pageSize: 25 (optional, number) - Amount of results to return
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + results (array[RoleProfile4, RoleProfile5, RoleProfile6], required) - array of people assigned to the criticality
+        + Include PaginationDataTree3
+
+
+
+#######################
 # Data Structures
+#######################
 
-## PaginationDataTree (object)
+## PaginationDataTree3 (object)
++ paginationData (object, required) - Informations required for pagination
+    + count: 3 (number,required) - total number of resources
+    + pageNum: 1 (number, required) - slice of resources returned
+    + pageSize: 25 (number, required) - size of the slice
+
+## PaginationDataTree8 (object)
 + paginationData (object, required) - Informations required for pagination
     + count: 8 (number,required) - total number of resources
     + pageNum: 1 (number, required) - slice of resources returned
@@ -59,70 +87,82 @@ Returns the info for the node of the given id for the the nodeType COM
 ## Node1 (object)
 + id: 1 (required, number)
 + parentId (number)
-+ nodeType: `BCP` (required, string)
++ nodeTypeId: `BCP` (required, string)
 + code: `BCP` (required, string)
 + description: `BCP` (required, string)
 
 ## Node2 (object)
 + id: 2 (required, number)
 + parentId: 1 (number)
-+ nodeType: `COM` (required, string)
++ nodeTypeId: `COM` (required, string)
 + code: `CMT00001` (required, string)
 + description: `BC COMMITTEE` (required, string)
 
 ## Node3 (object)
 + id: 3 (required, number)
 + parentId: 1 (number)
-+ nodeType: `ORG` (required, string)
++ nodeTypeId: `ORG` (required, string)
 + code: `BCORG001` (required, string)
 + description: `BC ORGANIZATION` (required, string)
 
 ## Node4 (object)
 + id: 4 (required, number)
 + parentId: 3 (required, number)
-+ nodeType: `CRI` (required, string)
++ nodeTypeId: `CRI` (required, string)
 + code: `C09.1.01` (required, string)
 + description: `INCIDENT MANAGEMENT` (required, string)
 
 ## Node5 (object)
 + id: 5 (required, number)
 + parentId: 3 (required, number)
-+ nodeType: `CRI` (required, string)
++ nodeTypeId: `CRI` (required, string)
 + code: `C16.1` (required, string)
 + description: `MONITORING & CONTROL` (required, string)
 
 ## Node6 (object)
 + id: 6 (required, number)
 + parentId: 4 (required, number)
-+ nodeType: `SIT` (required, string)
++ nodeTypeId: `SIT` (required, string)
 + code: `ST000003` (required, string)
 + description: `VERONA` (required, string)
 
 ## Node7 (object)
 + id: 7 (required, number)
 + parentId: 4 (required, number)
-+ nodeType: `SIT` (required, string)
++ nodeTypeId: `SIT` (required, string)
 + code: `ST000005` (required, string)
 + description: `MUNCHEN, AM TUCHERPARK 12` (required, string)
 
 ## Node8 (object)
 + id: 8 (required, number)
 + parentId: 6 (required, number)
-+ nodeType: `ET` (required, string)
++ nodeTypeId: `ET` (required, string)
 + code: `ST000005` (required, string)
 + description: `EMERGENCY TEAM 67 - INCIDENT MANAGEMENT` (required, string)
 
-## RoleProfile1 (ProfileDetail)
+## RoleProfile1 (ProfileListResult)
 + id: 1 (number) - id of the profile
-+ nodeType: `CHA`
++ nodeTypeDescription: `CHA`
 
-## RoleProfile2 (ProfileDetail)
+## RoleProfile2 (ProfileListResult)
 + id: 2 (number) - id of the profile
-+ nodeType: `MEM`
++ nodeTypeDescription: `MEM`
 
-## RoleProfile3 (ProfileDetail)
+## RoleProfile3 (ProfileListResult)
 + id: 3 (number) - id of the profile
-+ nodeType: `DEL`
++ nodeTypeDescription: `DEL`
+
+## RoleProfile4 (ProfileListResult)
++ id: 4 (number) - id of the profile
++ nodeTypeDescription: `SM`
+
+## RoleProfile5 (ProfileListResult)
++ id: 5 (number) - id of the profile
++ nodeTypeDescription: `UM`
+
+## RoleProfile6 (ProfileListResult)
++ id: 6 (number) - id of the profile
++ nodeTypeDescription: `CM`
 
 ## ProfileBase (object)
 + firstName: `MARIO` (required, string) - First name of the profile. Must be between 2 and 50 chars long.
@@ -142,6 +182,10 @@ Returns the info for the node of the given id for the the nodeType COM
 + fax (object)
     + country: `39` (string)
     + number: `3904912345678` (string)
+
+## ProfileListResult (ProfileBase)
++ id: 1 (number)
++ Include ProfilesAddresses
 
 ## ProfileDetail (ProfileBase)
 + businessUnit: `not used?` (string)

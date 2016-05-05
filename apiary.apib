@@ -22,8 +22,12 @@ Returns the revision organization structure tree with assigned people.
     + structureTypeId: BCP (string) - Structure type to filter for
     + revisionId: 1 (required) - id of the requested revision or "active"
     + page: 1 (optional, number) - The page of results to return
-    + sort: firstName (optional) - Sorting order
     + pageSize: 25 (optional, number) - Amount of results to return
+    + sort: description (optional) - Sorting order
+	+ sortOrder: asc (enum, optional) - Sorting order
+        + Members
+            + asc
+            + desc
 
 + Response 200 (application/json)
     + Attributes (object)
@@ -101,8 +105,12 @@ ET Emergency Team
     + revisionId: 1 (required) - id of the requested revision or "active"
     + nodeId: 2 (required) - id of the node
     + page: 1 (optional, number) - The page of results to return
-    + sort: firstName (optional) - Sorting order
     + pageSize: 25 (optional, number) - Amount of results to return
+    + sort: firstName (optional) - Sorting order
+	+ sortOrder: asc (enum, optional) - Sorting order
+        + Members
+            + asc
+            + desc
 
 + Response 200 (application/json)
     + Attributes (object)

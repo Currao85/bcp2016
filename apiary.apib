@@ -66,6 +66,22 @@ Returns the info for the node of the given id for the the nodeType CRI
         + results (array[RoleProfile4, RoleProfile5, RoleProfile6], required) - array of people assigned to the criticality
         + Include PaginationDataTree3
 
+### Node info ET [GET /organizations/{structureTypeId}/revisions/{revisionId}/nodes/ET/{nodeId}{?page,sort,pageSize}]
+Returns the info for the node of the given id for the the nodeType ET
+
++ Parameters
+  + structureTypeId: BCP (string) - Structure type to filter for
+  + revisionId: 1 (required) - id of the requested revision or "active"
+  + nodeId: 1 (required) - id of the requested revision or "active"
+  + page: 1 (optional, number) - The page of results to return
+  + sort: firstName (optional) - Sorting order
+  + pageSize: 25 (optional, number) - Amount of results to return
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + results (array[RoleProfile7, RoleProfile8, RoleProfile9], required) - array of people assigned to the emergency team
+        + Include PaginationDataTree3
+
 
 
 #######################
@@ -163,6 +179,18 @@ Returns the info for the node of the given id for the the nodeType CRI
 ## RoleProfile6 (ProfileListResult)
 + id: 6 (number) - id of the profile
 + nodeTypeDescription: `CM`
+
+## RoleProfile7 (ProfileListResult)
++ id: 7 (number) - id of the profile
++ nodeTypeDescription: `TL`
+
+## RoleProfile8 (ProfileListResult)
++ id: 8 (number) - id of the profile
++ nodeTypeDescription: `TM`
+
+## RoleProfile9 (ProfileListResult)
++ id: 9 (number) - id of the profile
++ nodeTypeDescription: `TM`
 
 ## ProfileBase (object)
 + firstName: `MARIO` (required, string) - First name of the profile. Must be between 2 and 50 chars long.

@@ -15,7 +15,7 @@ API related to the tree management.
 
 ## Tree Node collection [/organizations/{structureTypeId}/revisions/{revisionId}/nodes]
 
-### List nodes [GET /organizations/{structureTypeId}/revisions/{revisionId}/nodes{?page,sort,pageSize}]
+### List nodes [GET /organizations/{structureTypeId}/revisions/{revisionId}/nodes{?page,pageSize,sort,sortOrder}]
 Returns the revision organization structure tree with assigned people.
 
 + Parameters
@@ -36,86 +36,54 @@ Returns the revision organization structure tree with assigned people.
 
 ## Tree Node [/organizations/{structureTypeId}/revisions/{revisionId}/nodes/{nodeId}]
 
-### Node info Site [GET /organizations/{structureTypeId}/revisions/{revisionId}/nodes/{nodeId}/site{?page,sort,pageSize}]
-Returns the info for the node of the given id.
-Works only for nodes of following types: 
-SIT Site
+### Node info [GET /organizations/{structureTypeId}/revisions/{revisionId}/node/{nodeId}{?page,pageSize,sort,sortOrder}]
+Returns the info for the node of the given type id.
 
 + Parameters
     + structureTypeId: BCP (string) - Structure type to filter for
     + revisionId: 1 (required) - id of the requested revision or "active"
     + nodeId: 1 (required) - id of the node
-
-+ Response 200 (application/json)
-    + Attributes (object)
-        + Site1 (required) - a Site
-
-+ Response 404
-    Returned when the required resource cannot be found.
-
-    + Body
-
-+ Response 500
-    Returned when a generic error occours.
-
-    + Body
-
-### Node info Profile [GET /organizations/{structureTypeId}/revisions/{revisionId}/nodes/{nodeId}/profile]
-Returns the info for the node of the given id.
-Works only for nodes of following types: 
-CHA Chairman
-MEM Member
-DEL Delegate
-CRM Crisis Manager
-BCM BC Manager
-SM  Service Manager
-UM  Unit Manager
-CM  COE Manager
-TL  Team Leader
-TM  Team Member
-
-+ Parameters
-    + structureTypeId: BCP (string) - Structure type to filter for
-    + revisionId: 1 (required) - id of the requested revision or "active"
-    + nodeId: 9 (required) - id of the node
-
-+ Response 200 (application/json)
-    + Attributes (object)
-        + Profile1 (required) - a profile
-
-+ Response 404
-    Returned when the required resource cannot be found.
-
-    + Body
-
-+ Response 500
-    Returned when a generic error occours.
-
-    + Body
-
-### Node info Profile List [GET /organizations/{structureTypeId}/revisions/{revisionId}/nodes/{nodeId}/profilelist{?page,sort,pageSize}]
-Returns the info for the node of the given id.
-Works only for nodes of following types:
-COM Committee
-CRI Criticality
-ET Emergency Team
-
-+ Parameters
-    + structureTypeId: BCP (string) - Structure type to filter for
-    + revisionId: 1 (required) - id of the requested revision or "active"
-    + nodeId: 2 (required) - id of the node
     + page: 1 (optional, number) - The page of results to return
     + pageSize: 25 (optional, number) - Amount of results to return
-    + sort: firstName (optional) - Sorting order
+    + sort: description (optional) - Sorting order
     + sortOrder: asc (enum, optional) - Sorting order
         + Members
             + asc
             + desc
 
++ Response 404
+    Returned when the required resource cannot be found.
+
+    + Body
+
++ Response 500
+    Returned when a generic error occours.
+
+    + Body
+
++ Request
+When the `nodeType` of the node requested is `SIT`.
+
+    + Body
+    
 + Response 200 (application/json)
-    + Attributes (object)
-        + results (array[RoleProfile1, RoleProfile2, RoleProfile3], required) - array of profiles
-        + Include PaginationDataTree3
+    + Attributes (Node6Detail)
+    
++ Request
+When the `nodeType` of the node requested is `CHA`, `MEM`, `DEL`, `CRM`, `BCM`, `SM`, `UM`, `CM`, `TL`, `TM`.
+
+    + Body
+    
++ Response 200 (application/json)
+    + Attributes (Node9Detail)
+    
++ Request
+When the `nodeType` of the node requested is `COM`, `CRI`, `ET`.
+
+    + Body
+    
++ Response 200 (application/json)
+    + Attributes (Node2Detail)
 
 ### Create Tree Node COM [POST /organizations/{structureTypeId}/revisions/{revisionId}/nodes/COM]
 Create a new COM node into the tree.
@@ -372,6 +340,11 @@ Deletes a node in the tree and, eventually, all the children nodes.
 + code: `CMT00002` (required, string)
 + description: `BC COMMITTEE 2` (required, string)
 
+## Node2Detail (Node2)
++ contentDetail (object)
+    + results (array[RoleProfile1, RoleProfile2, RoleProfile3], required) - array of profiles
+    + Include PaginationDataTree3
+
 ## Node3 (object)
 + id: 3 (required, number)
 + parentId: 1 (number)
@@ -421,6 +394,9 @@ Deletes a node in the tree and, eventually, all the children nodes.
 + code: `ST000006` (required, string)
 + description: `VERONA 2` (required, string)
 
+## Node6Detail (Node6)
++ contentDetail (Site1)
+
 ## Node7 (object)
 + id: 7 (required, number)
 + parentId: 4 (required, number)
@@ -448,6 +424,9 @@ Deletes a node in the tree and, eventually, all the children nodes.
 + nodeTypeId: `CHA` (required, string)
 + code: `CHA` (required, string)
 + description: `LINZI GIOVANNI` (required, string)
+
+## Node9Detail (Node9)
++ contentDetail (ProfileDetail)
 
 ## Profile1 (ProfileDetail)
 + id: 1 (number) - id of the profile

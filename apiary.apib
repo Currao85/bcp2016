@@ -307,6 +307,12 @@ Deletes a node in the tree and, eventually, all the children nodes.
 # Data Structures
 #######################
 
+## PaginationDataTree1 (object)
++ paginationData (object, required) - Informations required for pagination
+    + count: 1 (number,required) - total number of resources
+    + pageNum: 1 (number, required) - slice of resources returned
+    + pageSize: 25 (number, required) - size of the slice
+
 ## PaginationDataTree3 (object)
 + paginationData (object, required) - Informations required for pagination
     + count: 3 (number,required) - total number of resources
@@ -380,10 +386,14 @@ Deletes a node in the tree and, eventually, all the children nodes.
 + code: `C16.1` (required, string)
 + description: `MONITORING & CONTROL` (required, string)
 
+## NodeType6 (object)
++ id: `BC_SITE` (required, string)
++ desrciption: `BC_SITE` (required, string)
+
 ## Node6 (object)
-+ id: 6 (required, number)
-+ parentId: 4 (required, number)
-+ nodeTypeId: `SIT` (required, string)
++ id: 16 (required, number)
++ parentId: 9 (required, number)
++ nodeType (NodeType6)
 + code: `ST000003` (required, string)
 + description: `VERONA` (required, string)
 
@@ -391,8 +401,8 @@ Deletes a node in the tree and, eventually, all the children nodes.
 + id: 13 (required, number)
 + parentId (required, number)
 + nodeTypeId: `SIT` (required, string)
-+ code: `ST000006` (required, string)
-+ description: `VERONA 2` (required, string)
++ code: `ST000003` (required, string)
++ description: `VERONA` (required, string)
 
 ## Node6Detail (Node6)
 + contentDetail (Site1)
@@ -468,6 +478,10 @@ Deletes a node in the tree and, eventually, all the children nodes.
 + id: 9 (number) - id of the profile
 + nodeTypeDescription: `TM`
 
+## RoleProfile10 (ProfileListResult)
++ id: 1 (number) - id of the profile
++ nodeTypeDescription: `BC_SITEMAN`
+
 ## ProfileBase (object)
 + firstName: `MARIO` (required, string) - First name of the profile. Must be between 2 and 50 chars long.
 + lastName: `BIANCHI` (required, string) - Last name of the profile. Must be between 2 and 50 chars long.
@@ -514,9 +528,18 @@ Deletes a node in the tree and, eventually, all the children nodes.
 + locationId: 1 (number)
 
 ## Site1 (object)
-+ id: 1 (required, number)
-+ street: Via Lisbona (string)
-+ zip: 12345 (string)
-+ city: Padova (string)
-+ state: PD (string)
-+ country: Italy (string)
++ telephone: `012345678` (string)
++ location (Location1)
++ employees (object)
+    + Include PaginationDataTree1
+    + results (array[RoleProfile10], required) - array of profiles
++ code: `ST000003` (string)
++ description: `VERONA` (string)
+
+## Location1
++ id: 2 (required, number)
++ street: Via Mazzini (string)
++ zip: 37121 (string, optional)
++ city: VERONA (string, optional)
++ state: VR (string, optional)
++ country: Italy (string, optional)

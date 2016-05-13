@@ -70,15 +70,15 @@ When the `nodeType` of the node requested is `BC_SITE`.
     + Attributes (Node6Detail)
     
 + Request
-When the `nodeType` of the node requested is `CHA`, `MEM`, `DEL`, `CRM`, `BCM`, `SM`, `UM`, `CM`, `TL`, `TM`.
+When the `nodeType` of the node requested is `BC_CHAIRMA`, `BC_MEMBER`, `BC_CRIMAN`, `BC_MANAGER`, `BC_SERVMAN`, `BC_UNITMAN`, `BC_ETLEAD`, `BC_ETMEMB`, `BC_ETDEPUT`, `BC_COEMAN`, `BC_PROCOWN`, `BC_PROCFOC`, `BC_PROCDEP`, `BC_SITEMAN`, `BC_COMMAN`.
 
     + Body
     
 + Response 200 (application/json)
-    + Attributes (Node9Detail)
+    + Attributes (Node10Detail)
     
 + Request
-When the `nodeType` of the node requested is `COM`, `CRI`, `ET`.
+When the `nodeType` of the node requested is `BC_COMM`, `BC_ET`.
 
     + Body
     
@@ -334,8 +334,8 @@ Deletes a node in the tree and, eventually, all the children nodes.
 
 ## Node2 (object)
 + id: 2 (required, number)
-+ parentId: 1 (number)
-+ nodeTypeId: `COM` (required, string)
++ parentId: 1 (required, number)
++ nodeType (NodeType2)
 + code: `CMT00001` (required, string)
 + description: `BC COMMITTEE` (required, string)
 
@@ -346,10 +346,14 @@ Deletes a node in the tree and, eventually, all the children nodes.
 + code: `CMT00002` (required, string)
 + description: `BC COMMITTEE 2` (required, string)
 
+## NodeType2 (object)
++ id: `BC_COMM` (required, string)
++ desrciption: `BC_COMMITTEE` (required, string)
+
 ## Node2Detail (Node2)
 + contentDetail (object)
-    + results (array[RoleProfile1, RoleProfile2, RoleProfile3], required) - array of profiles
     + Include PaginationDataTree3
+    + results (array[RoleProfile1, RoleProfile2, RoleProfile3], required) - array of profiles
 
 ## Node3 (object)
 + id: 3 (required, number)
@@ -438,21 +442,39 @@ Deletes a node in the tree and, eventually, all the children nodes.
 ## Node9Detail (Node9)
 + contentDetail (ProfileDetail)
 
+## Node10 (object)
++ id: 6 (required, number)
++ parentId: 2 (required, number)
++ nodeType (NodeType10)
++ code: `BC_CRIMAN` (required, string)
++ description: `COMMITTEE CRISIS MANAGER` (required, string)
+
+## NodeType10 (object)
++ id: `BC_CRIMAN` (required, string)
++ desrciption: `COMMITTEE CRISIS MANAGER` (required, string)
+
+## Node10Detail (Node10)
++ contentDetail (RoleProfile11)
+
+
 ## Profile1 (ProfileDetail)
 + id: 1 (number) - id of the profile
 + nodeTypeDescription: `CHA`
 
-## RoleProfile1 (ProfileListResult)
-+ id: 1 (number) - id of the profile
-+ nodeTypeDescription: `CHA`
+## RoleProfile1 (ProfileListResult2)
++ id: 100 (number) - id of the profile
++ nodeId: 7 (number, required) - node id
++ employeeRole (EmployeeRole3)
 
-## RoleProfile2 (ProfileListResult)
-+ id: 2 (number) - id of the profile
-+ nodeTypeDescription: `MEM`
+## RoleProfile2 (ProfileListResult2)
++ id: 101 (number) - id of the profile
++ nodeId: 2 (number, required) - node id
++ employeeRole (EmployeeRole4)
 
-## RoleProfile3 (ProfileListResult)
-+ id: 3 (number) - id of the profile
-+ nodeTypeDescription: `DEL`
+## RoleProfile3 (ProfileListResult2)
++ id: 103 (number) - id of the profile
++ nodeId: 6 (number, required) - node id
++ employeeRole (EmployeeRole2)
 
 ## RoleProfile4 (ProfileListResult)
 + id: 4 (number) - id of the profile
@@ -489,9 +511,42 @@ Deletes a node in the tree and, eventually, all the children nodes.
 + Include ProfilesAddressesBase
 + id: 1 (number) - id of the profile
 
+## RoleProfile11 (object)
++ nodeParent: 2 (number) - parent's node id
++ nodeId: 6 (number, required) - node id
++ employeeRole (EmployeeRole2)
++ Include ProfileBase
++ jobRole: `job` (string)
++ managerRole: `true` (boolean)
++ businessUnit: `BU` (string)
++ Include ProfilesAddressesBase
++ id: 101 (number) - id of the profile
+
 ## EmployeeRole1 (object)
 + id: `BC_SITEMAN` (required, string)
 + desrciption: `SITE MANAGER` (required, string)
+
+## EmployeeRole2 (object)
++ id: `BC_CRIMAN` (required, string)
++ desrciption: `COMMITTEE CRISIS MANAGER` (required, string)
+
+## EmployeeRole3 (object)
++ id: `BC_CHAIRMA` (required, string)
++ desrciption: `COMMITTEE CHAIRMAN` (required, string)
+
+## EmployeeRole4 (object)
++ id: `BC_MANAGER` (required, string)
++ desrciption: `BC MANAGER` (required, string)
+
+## ProfileListResult2 (ProfileBase)
++ nodeParent: 2 (number) - parent's node id
++ nodeId: 6 (number, required) - node id
++ employeeRole (EmployeeRole2)
++ jobRole: `job` (string)
++ managerRole: `true` (boolean)
++ businessUnit: `BU` (string)
++ Include ProfilesAddressesBase
++ id: 101 (number) - id of the profile
 
 ## ProfileBase (object)
 + firstName: `MARIO` (required, string) - First name of the profile. Must be between 2 and 50 chars long.

@@ -84,6 +84,15 @@ When the `nodeType` of the node requested is `BC_COMM`, `BC_ET`.
     
 + Response 200 (application/json)
     + Attributes (Node2Detail)
+    
++ Request
+When the `nodeType` of the node requested is `BC_ORG`.
+
+    + Body
+    
++ Response 200 (application/json)
+    + Attributes (Node11Detail)
+    
 
 ### Create Tree Node COM [POST /organizations/{structureTypeId}/revisions/{revisionId}/nodes/COM]
 Create a new COM node into the tree.
@@ -455,6 +464,26 @@ Deletes a node in the tree and, eventually, all the children nodes.
 
 ## Node10Detail (Node10)
 + contentDetail (RoleProfile11)
+
+## Node11 (object)
++ id: 3 (required, number)
++ parentId: 1 (required, number)
++ nodeType (NodeType11)
++ code: `BCORG001` (required, string)
++ description: `BC ORGANIZATION` (required, string)
+
+## NodeType11 (object)
++ id: `BC_ORG` (required, string)
++ desrciption: `BC_ORGANIZATION` (required, string)
+
+## Node11Detail (Node11)
++ contentDetail (object)
+    + code: `BCORG001` (required, string)
+    + description: `BC ORGANIZATION` (optional, string)
+    + notes: `notes` (optional, string)
+    + type: `BC_ORG` (optional, string)
+    + structureType (object)
+        + id: `BC` (required, string)
 
 
 ## Profile1 (ProfileDetail)

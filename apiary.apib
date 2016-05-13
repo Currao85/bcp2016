@@ -93,6 +93,14 @@ When the `nodeType` of the node requested is `BC_ORG`.
 + Response 200 (application/json)
     + Attributes (Node11Detail)
     
++ Request
+When the `nodeType` of the node requested is `BC_CRIPROC`.
+
+    + Body
+    
++ Response 200 (application/json)
+    + Attributes (Node12Detail)
+    
 
 ### Create Tree Node COM [POST /organizations/{structureTypeId}/revisions/{revisionId}/nodes/COM]
 Create a new COM node into the tree.
@@ -321,6 +329,12 @@ Deletes a node in the tree and, eventually, all the children nodes.
     + count: 1 (number,required) - total number of resources
     + pageNum: 1 (number, required) - slice of resources returned
     + pageSize: 25 (number, required) - size of the slice
+    
+## PaginationDataTree2 (object)
++ paginationData (object, required) - Informations required for pagination
+    + count: 2 (number,required) - total number of resources
+    + pageNum: 1 (number, required) - slice of resources returned
+    + pageSize: 25 (number, required) - size of the slice
 
 ## PaginationDataTree3 (object)
 + paginationData (object, required) - Informations required for pagination
@@ -337,8 +351,12 @@ Deletes a node in the tree and, eventually, all the children nodes.
 ## Node1 (object)
 + id: 1 (required, number)
 + parentId: 1 (number)
-+ nodeTypeId: `BCP` (required, string)
-+ code: `BCP` (required, string)
++ nodeType (NodeType1)
++ code: `BCPROOT` (required, string)
++ description: `BCP` (required, string)
+
+## NodeType1 (object)
++ id: `BC_ROOT` (required, string)
 + description: `BCP` (required, string)
 
 ## Node2 (object)
@@ -348,16 +366,16 @@ Deletes a node in the tree and, eventually, all the children nodes.
 + code: `CMT00001` (required, string)
 + description: `BC COMMITTEE` (required, string)
 
+## NodeType2 (object)
++ id: `BC_COMM` (required, string)
++ description: `BC_COMMITTEE` (required, string)
+
 ## Node2b (object)
 + id: 10 (required, number)
 + parentId (number)
 + nodeTypeId: `COM` (required, string)
 + code: `CMT00002` (required, string)
 + description: `BC COMMITTEE 2` (required, string)
-
-## NodeType2 (object)
-+ id: `BC_COMM` (required, string)
-+ desrciption: `BC_COMMITTEE` (required, string)
 
 ## Node2Detail (Node2)
 + contentDetail (object)
@@ -367,9 +385,13 @@ Deletes a node in the tree and, eventually, all the children nodes.
 ## Node3 (object)
 + id: 3 (required, number)
 + parentId: 1 (number)
-+ nodeTypeId: `ORG` (required, string)
++ nodeType (NodeType3)
 + code: `BCORG001` (required, string)
 + description: `BC ORGANIZATION` (required, string)
+
+## NodeType3 (object)
++ id: `BC_ORG` (required, string)
++ description: `BC_ORGANIZATION` (required, string)
 
 ## Node3b (object)
 + id: 11 (required, number)
@@ -379,11 +401,15 @@ Deletes a node in the tree and, eventually, all the children nodes.
 + description: `BC ORGANIZATION 2` (required, string)
 
 ## Node4 (object)
-+ id: 4 (required, number)
++ id: 9 (required, number)
 + parentId: 3 (required, number)
-+ nodeTypeId: `CRI` (required, string)
++ nodeType (NodeType4)
 + code: `C09.1.01` (required, string)
 + description: `INCIDENT MANAGEMENT` (required, string)
+
+## NodeType4 (object)
++ id: `BC_CRIPROC` (required, string)
++ description: `BC_CRITICAL_PROCESS` (required, string)
 
 ## Node4b (object)
 + id: 12 (required, number)
@@ -393,15 +419,15 @@ Deletes a node in the tree and, eventually, all the children nodes.
 + description: `INCIDENT MANAGEMENT 2` (required, string)
 
 ## Node5 (object)
-+ id: 5 (required, number)
++ id: 10 (required, number)
 + parentId: 3 (required, number)
-+ nodeTypeId: `CRI` (required, string)
++ nodeType (NodeType4)
 + code: `C16.1` (required, string)
 + description: `MONITORING & CONTROL` (required, string)
 
 ## NodeType6 (object)
 + id: `BC_SITE` (required, string)
-+ desrciption: `BC_SITE` (required, string)
++ description: `BC_SITE` (required, string)
 
 ## Node6 (object)
 + id: 16 (required, number)
@@ -423,30 +449,38 @@ Deletes a node in the tree and, eventually, all the children nodes.
 ## Node7 (object)
 + id: 7 (required, number)
 + parentId: 4 (required, number)
-+ nodeTypeId: `SIT` (required, string)
++ nodeType (NodeType6)
 + code: `ST000005` (required, string)
 + description: `MUNCHEN, AM TUCHERPARK 12` (required, string)
 
 ## Node8 (object)
 + id: 8 (required, number)
 + parentId: 6 (required, number)
-+ nodeTypeId: `ET` (required, string)
++ nodeType (NodeType8)
 + code: `ET000067` (required, string)
 + description: `EMERGENCY TEAM 67 - INCIDENT MANAGEMENT` (required, string)
+
+## NodeType8 (object)
++ id: `BC_ET` (required, string)
++ description: `EMERGENCY TEAM` (required, string)
 
 ## Node8b (object)
 + id: 14 (required, number)
 + parentId (required, number)
-+ nodeTypeId: `ET` (required, string)
++ nodeType (NodeType8)
 + code: `ET000068` (required, string)
 + description: `EMERGENCY TEAM 68 - INCIDENT MANAGEMENT 2` (required, string)
 
 ## Node9 (object)
 + id: 9 (required, number)
 + parentId: 2 (number)
-+ nodeTypeId: `CHA` (required, string)
-+ code: `CHA` (required, string)
-+ description: `LINZI GIOVANNI` (required, string)
++ nodeType (NodeType9)
++ code: `BC_CHAIRMA` (required, string)
++ description: `COMMITTEE CHAIRMAN` (required, string)
+
+## NodeType9 (object)
++ id: `BC_CRIMAN` (required, string)
++ description: `COMMITTEE CRISIS MANAGER` (required, string)
 
 ## Node9Detail (Node9)
 + contentDetail (ProfileDetail)
@@ -460,7 +494,7 @@ Deletes a node in the tree and, eventually, all the children nodes.
 
 ## NodeType10 (object)
 + id: `BC_CRIMAN` (required, string)
-+ desrciption: `COMMITTEE CRISIS MANAGER` (required, string)
++ description: `COMMITTEE CRISIS MANAGER` (required, string)
 
 ## Node10Detail (Node10)
 + contentDetail (RoleProfile11)
@@ -468,13 +502,9 @@ Deletes a node in the tree and, eventually, all the children nodes.
 ## Node11 (object)
 + id: 3 (required, number)
 + parentId: 1 (required, number)
-+ nodeType (NodeType11)
++ nodeType (NodeType3)
 + code: `BCORG001` (required, string)
 + description: `BC ORGANIZATION` (required, string)
-
-## NodeType11 (object)
-+ id: `BC_ORG` (required, string)
-+ desrciption: `BC_ORGANIZATION` (required, string)
 
 ## Node11Detail (Node11)
 + contentDetail (object)
@@ -484,6 +514,23 @@ Deletes a node in the tree and, eventually, all the children nodes.
     + type: `BC_ORG` (optional, string)
     + structureType (object)
         + id: `BC` (required, string)
+        
+## Node12 (object)
++ id: 9 (required, number)
++ parentId: 3 (required, number)
++ nodeType (NodeType4)
++ code: `C09.1.01` (required, string)
++ description: `INCIDENT MANAGEMENT` (required, string)
+
+
+## Node12Detail (Node12)
++ contentDetail (object)
+    + employees (object)
+        + Include PaginationDataTree2
+        + results (array[RoleProfile12, RoleProfile13], required) - array of profiles
+    + notes: `notes` (optional, string)
+    + code: `C09.1.01` (string)
+    + description: `INCIDENT MANAGEMENT` (string)
 
 
 ## Profile1 (ProfileDetail)
@@ -551,21 +598,53 @@ Deletes a node in the tree and, eventually, all the children nodes.
 + Include ProfilesAddressesBase
 + id: 101 (number) - id of the profile
 
+## RoleProfile12 (object)
++ nodeParent: 9 (number) - parent's node id
++ nodeId: 15 (number, required) - node id
++ employeeRole (EmployeeRole5)
++ Include ProfileBase
++ firstName: `PAOLO` (required, string) 
++ lastName: `ROSSI` (required, string)
++ jobRole: `job` (string)
++ managerRole: `true` (boolean)
++ businessUnit: `BU` (string)
++ Include ProfilesAddressesBase
++ id: 201 (number) - id of the profile
+
+## RoleProfile13 (object)
++ nodeParent: 9 (number) - parent's node id
++ nodeId: 14 (number, required) - node id
++ employeeRole (EmployeeRole6)
++ Include ProfileBase
++ jobRole: `job` (string)
++ managerRole: `true` (boolean)
++ businessUnit: `BU` (string)
++ Include ProfilesAddressesBase
++ id: 200 (number) - id of the profile
+
 ## EmployeeRole1 (object)
 + id: `BC_SITEMAN` (required, string)
-+ desrciption: `SITE MANAGER` (required, string)
++ description: `SITE MANAGER` (required, string)
 
 ## EmployeeRole2 (object)
 + id: `BC_CRIMAN` (required, string)
-+ desrciption: `COMMITTEE CRISIS MANAGER` (required, string)
++ description: `COMMITTEE CRISIS MANAGER` (required, string)
 
 ## EmployeeRole3 (object)
 + id: `BC_CHAIRMA` (required, string)
-+ desrciption: `COMMITTEE CHAIRMAN` (required, string)
++ description: `COMMITTEE CHAIRMAN` (required, string)
 
 ## EmployeeRole4 (object)
 + id: `BC_MANAGER` (required, string)
-+ desrciption: `BC MANAGER` (required, string)
++ description: `BC MANAGER` (required, string)
+
+## EmployeeRole5 (object)
++ id: `BC_UNITMAN` (required, string)
++ description: `SERVICE MANAGER` (required, string)
+
+## EmployeeRole6 (object)
++ id: `BC_SERVMAN` (required, string)
++ description: `SERVICE MANAGER` (required, string)
 
 ## ProfileListResult2 (ProfileBase)
 + nodeParent: 2 (number) - parent's node id

@@ -62,7 +62,7 @@ Returns the info for the node of the given type id.
     + Body
 
 + Request
-When the `nodeType` of the node requested is `SIT`.
+When the `nodeType` of the node requested is `BC_SITE`.
 
     + Body
     
@@ -478,9 +478,20 @@ Deletes a node in the tree and, eventually, all the children nodes.
 + id: 9 (number) - id of the profile
 + nodeTypeDescription: `TM`
 
-## RoleProfile10 (ProfileListResult)
+## RoleProfile10 (object)
++ nodeParent: 16 (number) - parent's node id
++ nodeId: 7 (number, required) - node id
++ employeeRole (EmployeeRole1)
++ Include ProfileBase
++ jobRole: `job` (string)
++ managerRole: `true` (boolean)
++ businessUnit: `BU` (string)
++ Include ProfilesAddressesBase
 + id: 1 (number) - id of the profile
-+ nodeTypeDescription: `BC_SITEMAN`
+
+## EmployeeRole1 (object)
++ id: `BC_SITEMAN` (required, string)
++ desrciption: `SITE MANAGER` (required, string)
 
 ## ProfileBase (object)
 + firstName: `MARIO` (required, string) - First name of the profile. Must be between 2 and 50 chars long.
@@ -515,10 +526,21 @@ Deletes a node in the tree and, eventually, all the children nodes.
 + id: 1 (number)
 + Include ProfilesAddresses
 
+## ProfilesAddressesBase (object)
++ addresses
+    + preferred (ProfileAddressBase) - preferred address of the user, if different from business address.
+    + business (ProfileAddressBase) - business address of the user.
+
 ## ProfilesAddresses (object)
 + addresses
     + preferred (ProfileAddress) - preferred address of the user, if different from business address.
     + business (ProfileAddress) - business address of the user.
+
+## ProfileAddressBase
++ street: Via Nizza 15
++ city: Torino
++ country: Italy
++ zip: 12345
 
 ## ProfileAddress
 + street: Via Nizza 15

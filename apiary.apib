@@ -65,42 +65,42 @@ Returns the info for the node of the given type id.
 When the `nodeType` of the node requested is `BC_SITE`.
 
     + Body
-    
+
 + Response 200 (application/json)
     + Attributes (Node6Detail)
-    
+
 + Request
 When the `nodeType` of the node requested is `BC_CHAIRMA`, `BC_MEMBER`, `BC_CRIMAN`, `BC_MANAGER`, `BC_SERVMAN`, `BC_UNITMAN`, `BC_ETLEAD`, `BC_ETMEMB`, `BC_ETDEPUT`, `BC_COEMAN`, `BC_PROCOWN`, `BC_PROCFOC`, `BC_PROCDEP`, `BC_SITEMAN`, `BC_COMMAN`.
 
     + Body
-    
+
 + Response 200 (application/json)
     + Attributes (Node10Detail)
-    
+
 + Request
 When the `nodeType` of the node requested is `BC_COMM`, `BC_ET`.
 
     + Body
-    
+
 + Response 200 (application/json)
     + Attributes (Node2Detail)
-    
+
 + Request
 When the `nodeType` of the node requested is `BC_ORG`.
 
     + Body
-    
+
 + Response 200 (application/json)
     + Attributes (Node11Detail)
-    
+
 + Request
 When the `nodeType` of the node requested is `BC_CRIPROC`.
 
     + Body
-    
+
 + Response 200 (application/json)
     + Attributes (Node12Detail)
-    
+
 
 ### Create Tree Node COM [POST /organizations/{structureTypeId}/revisions/{revisionId}/nodes/COM]
 Create a new COM node into the tree.
@@ -108,7 +108,7 @@ Create a new COM node into the tree.
 + Parameters
     + structureTypeId: BCP (string) - Structure type to filter for
     + revisionId: 1 (required) - id of the requested revision or "active"
-    
+
 + Request (application/json)
     + Attributes
         + nodeId (number, optional)
@@ -140,7 +140,7 @@ Create a new ORG node into the tree.
 + Parameters
     + structureTypeId: BCP (string) - Structure type to filter for
     + revisionId: 1 (required) - id of the requested revision or "active"
-    
+
 + Request (application/json)
     + Attributes
         + nodeId (number, optional)
@@ -165,14 +165,14 @@ Create a new ORG node into the tree.
     Returned when a generic error occours.
 
     + Body
-    
+
 ### Create Tree Node CRI [POST /organizations/{structureTypeId}/revisions/{revisionId}/nodes/CRI]
 Create a new CRI node into the tree.
 
 + Parameters
     + structureTypeId: BCP (string) - Structure type to filter for
     + revisionId: 1 (required) - id of the requested revision or "active"
-    
+
 + Request (application/json)
     + Attributes
         + nodeId (number, optional)
@@ -205,7 +205,7 @@ Create a new SIT node into the tree.
 + Parameters
     + structureTypeId: BCP (string) - Structure type to filter for
     + revisionId: 1 (required) - id of the requested revision or "active"
-    
+
 + Request (application/json)
     + Attributes
         + nodeId (number, optional)
@@ -233,14 +233,14 @@ Create a new SIT node into the tree.
     Returned when a generic error occours.
 
     + Body
-    
+
 ### Create Tree Node ET [POST /organizations/{structureTypeId}/revisions/{revisionId}/nodes/ET]
 Create a new ET node into the tree.
 
 + Parameters
     + structureTypeId: BCP (string) - Structure type to filter for
     + revisionId: 1 (required) - id of the requested revision or "active"
-    
+
 + Request (application/json)
     + Attributes
         + nodeId (number, optional)
@@ -265,7 +265,7 @@ Create a new ET node into the tree.
     Returned when a generic error occours.
 
     + Body
-    
+
 ### Create Tree Node Profile [POST /organizations/{structureTypeId}/revisions/{revisionId}/nodes/{nodeType}]
 Create a new Profile node into the tree.
 
@@ -273,7 +273,7 @@ Create a new Profile node into the tree.
     + structureTypeId: BCP (string) - Structure type to filter for
     + revisionId: 1 (required) - id of the requested revision or "active"
     + nodeType: CHA (required) - the node type (CHA, MEM, DEL, CRM, BCM, SM, UM, CM, TL, TM)
-    
+
 + Request (application/json)
     + Attributes
         + nodeId (number, optional)
@@ -297,7 +297,7 @@ Create a new Profile node into the tree.
     Returned when a generic error occours.
 
     + Body
-    
+
 ### Delete Tree Node [DELETE /organizations/{structureTypeId}/revisions/{revisionId}/nodes/{nodeId}{?recursively,entity,entityRecursively}]
 Deletes a node in the tree and, eventually, all the children nodes.
 
@@ -318,6 +318,112 @@ Deletes a node in the tree and, eventually, all the children nodes.
 
     + Body
 
+#######################
+# Group Documents - DRAFT
+#######################
+
+API related to documents management.
+
+## Documents collection [/organizations/{structureTypeId}/departments/{departmentId}/documents{?page,pageSize,sort,sortOrder}]
+
+### List documents [GET]
+Returns the document list for the given department.
+
++ Parameters
+    + structureTypeId: BC (string) - Structure type to filter for
+    + departmentId: 1 (number, required) - Id of the entity
+    + page: 1 (optional, number) - The page of results to return
+    + pageSize: 25 (optional, number) - Amount of results to return
+    + sort: description (optional) - Sorting order
+    + sortOrder: asc (enum, optional) - Sorting order
+        + Members
+            + asc
+            + desc
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + results (array[Document1, Document2, Document3]) - array of document objects
+        + Include PaginationDataTree9
+
+### Upload document [POST]
+Uploads a new document for the given department.
+
+The uploaded document will be inserted as new document even if exists a document with same name.
+
++ Parameters
+    + structureTypeId: BCP (string) - Structure type to filter for
+    + departmentId: 1 (number, required) - Id of the entity
+
++ Request (multipart/form-data)
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /organizations/{structureTypeId}/revisions/{revisionId}/documents/10
+
+    + Attributes (Document1)
+
++ Response 400
+    Returned when the required resource cannot be found.
+
+    + Body
+
++ Response 500
+    Returned when a generic error occours.
+
+    + Body
+
+
+
+## Document [/organizations/{structureTypeId}/documents/{id}]
+
+### Read document [GET]
+Returns the document detail for the given id.
+
++ Parameters
+    + structureTypeId: BCP (string) - Structure type to filter for
+    + id: 1 (number, required) - id of the document
+
++ Response 404
+    Returned when the required resource cannot be found.
+    + Body
+
++ Response 500
+    Returned when a generic error occours.
+    + Body
+
++ Request
+When the document is an excel file
+    + Body
+
++ Response 200 (application/vnd.ms-excel)
+    + Body
+
++ Request
+When the document is a word file
+    + Body
+
++ Response 200 (application/vnd.openxmlformats-officedocument.wordprocessingml.document)
+    + Body
+
+### Delete document [DELETE]
+Deletes a document.
+
++ Response 204
+    Returned when the resource is successfully deleted.
+
+    + Body
+
++ Response 404
+    Returned when the required resource cannot be found.
+
+    + Body
+
++ Response 500
+    Returned when a generic error occours.
+
+    + Body
 
 
 #######################
@@ -329,7 +435,7 @@ Deletes a node in the tree and, eventually, all the children nodes.
     + count: 1 (number,required) - total number of resources
     + pageNum: 1 (number, required) - slice of resources returned
     + pageSize: 25 (number, required) - size of the slice
-    
+
 ## PaginationDataTree2 (object)
 + paginationData (object, required) - Informations required for pagination
     + count: 2 (number,required) - total number of resources
@@ -514,7 +620,7 @@ Deletes a node in the tree and, eventually, all the children nodes.
     + type: `BC_ORG` (optional, string)
     + structureType (object)
         + id: `BC` (required, string)
-        
+
 ## Node12 (object)
 + id: 9 (required, number)
 + parentId: 3 (required, number)
@@ -603,7 +709,7 @@ Deletes a node in the tree and, eventually, all the children nodes.
 + nodeId: 15 (number, required) - node id
 + employeeRole (EmployeeRole5)
 + Include ProfileBase
-+ firstName: `PAOLO` (required, string) 
++ firstName: `PAOLO` (required, string)
 + lastName: `ROSSI` (required, string)
 + jobRole: `job` (string)
 + managerRole: `true` (boolean)
@@ -728,3 +834,21 @@ Deletes a node in the tree and, eventually, all the children nodes.
 + city: VERONA (string, optional)
 + state: VR (string, optional)
 + country: Italy (string, optional)
+
+## Document1 (object)
++ documentid: 1 (number, required)
++ entityid: `C16.10.01` (string, required)
++ fileName: `document1.xlsx` (string, required)
++ uploaddate: `2016-05-01` (string, required)
+
+## Document2 (object)
++ documentid: 2 (number, required)
++ entityid: `C16.10.01` (string, required)
++ fileName: `document2.docx` (string, required)
++ uploaddate: `2016-0-15` (string, required)
+
+## Document3 (object)
++ documentid: 3 (number, required)
++ entityid: `ST000003` (string, required)
++ fileName: `anotherdocument.pptx` (string, required)
++ uploaddate: `2016-01-01` (string, required)

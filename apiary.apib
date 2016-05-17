@@ -28,6 +28,7 @@ Returns the revision organization structure tree with assigned people.
         + Members
             + asc
             + desc
+    + searchQuery: `{"revision":"1", "category":"sxxx", "linkablechildcode":"Stewart", "linkableparents":false, "typerole": "ET_LEADER", "code": "xxxx", "parentcode": "yyyy"}` (optional)
 
 + Response 200 (application/json)
     + Attributes (object)
@@ -62,7 +63,7 @@ Returns the info for the node of the given type id.
     + Body
 
 + Request
-When the `nodeType` of the node requested is `BC_SITE`.
+When the `nodeType.id` of the node requested is `BC_SITE`.
 
     + Body
 
@@ -70,7 +71,7 @@ When the `nodeType` of the node requested is `BC_SITE`.
     + Attributes (Node6Detail)
 
 + Request
-When the `nodeType` of the node requested is `BC_CHAIRMA`, `BC_MEMBER`, `BC_CRIMAN`, `BC_MANAGER`, `BC_SERVMAN`, `BC_UNITMAN`, `BC_ETLEAD`, `BC_ETMEMB`, `BC_ETDEPUT`, `BC_COEMAN`, `BC_PROCOWN`, `BC_PROCFOC`, `BC_PROCDEP`, `BC_SITEMAN`, `BC_COMMAN`.
+When the `nodeType.id` of the node requested is `BC_CHAIRMA`, `BC_MEMBER`, `BC_CRIMAN`, `BC_MANAGER`, `BC_SERVMAN`, `BC_UNITMAN`, `BC_ETLEAD`, `BC_ETMEMB`, `BC_ETDEPUT`, `BC_COEMAN`, `BC_PROCOWN`, `BC_PROCFOC`, `BC_PROCDEP`, `BC_SITEMAN`, `BC_COMMAN`.
 
     + Body
 
@@ -78,7 +79,7 @@ When the `nodeType` of the node requested is `BC_CHAIRMA`, `BC_MEMBER`, `BC_CRIM
     + Attributes (Node10Detail)
 
 + Request
-When the `nodeType` of the node requested is `BC_COMM`, `BC_ET`.
+When the `nodeType.id` of the node requested is `BC_COMM`, `BC_ET`.
 
     + Body
 
@@ -86,7 +87,7 @@ When the `nodeType` of the node requested is `BC_COMM`, `BC_ET`.
     + Attributes (Node2Detail)
 
 + Request
-When the `nodeType` of the node requested is `BC_ORG`.
+When the `nodeType.id` of the node requested is `BC_ORG`.
 
     + Body
 
@@ -94,7 +95,7 @@ When the `nodeType` of the node requested is `BC_ORG`.
     + Attributes (Node11Detail)
 
 + Request
-When the `nodeType` of the node requested is `BC_CRIPROC`.
+When the `nodeType.id` of the node requested is `BC_CRIPROC`.
 
     + Body
 

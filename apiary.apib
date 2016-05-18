@@ -20,18 +20,15 @@ Returns the revision organization structure tree with assigned people.
 
 **TODO: WIP - the implementation does not yet receive the searchQuery param.**
 Takes a `searchQuery` parameter object defined as follows
-  + revision (required, number) - numeric id of the revision
-  + category (optional, boolean)
-  + linkablechildcode (optional, string)
-  + linkableparents (optional, boolean)
+  + revId (required, number) - numeric id of the revision
+  + categId (optional, boolean)
+  + linkableChildCode (optional, string)
+  + linkableParentsSearch (optional, boolean)
   + movable (optional, boolean)
   + erasable (optional, boolean)
-  + parentdeptcode (optional, string)
-  + deptcode (optional, string)department code
+  + parentDeptCode (optional, string)
+  + deptCode (optional, string)department code
   + typeRole (optional, string)
-  + deptstrict (optional, boolean)
-  + parentdeptlist (optional, boolean)
-
 This action does not require authentication.
 
 + Parameters
@@ -44,7 +41,7 @@ This action does not require authentication.
         + Members
             + asc
             + desc
-    + searchQuery: `{"revision":"1", "category":"DPT", "linkablechildcode":"Stewart", "linkableparents":false, "typerole": "ET_LEADER", "deptcode": "xxxx", "partentdeptcode": "yyyy", "movable": false, "erasable": false}` (optional)
+    + searchQuery: `{"revId":"1", "categId":"DPT", "linkableChildCode":"Stewart", "linkableParentsSearch":false, "movable": false, "erasable": false, "parentDeptCode": "yyyy", "deptCode": "xxxx", "typeRole": "ET_LEADER", "deptStrict": false, "parentDeptList": false}` (optional)
 
 + Response 200 (application/json)
     + Attributes (object)

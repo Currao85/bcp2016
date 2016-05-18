@@ -188,6 +188,24 @@ When the `nodeType.id` of the node requested is `BC_CRIPROC`.
 + Response 200 (application/json)
     + Attributes (Node12Detail)
 
+### List Linkable Nodes [GET  /organizations/{structureTypeId}/revisions/{revisionId}/nodes/{nodeId}/linkableparentsnodes]
+Retrieve a list of nodes that the current node can be linked to.
+
++ Parameters
+    + structureTypeId: BC (string) - Structure type to filter for
+    + revisionId: 1 (required) - id of the requested revision or "active"
+    + nodeId: 1 (number) - id of the node
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + results (array[Node1, Node2, Node3, Node4, Node5, Node6, Node7, Node8, Node9], required) - array of nodes
+        + Include PaginationDataTree9
+
++ Response 500
+    Returned when a generic error occours.
+
+    + Body
+
 ### Move Tree Node [PUT]
 Move the node (and all its children) in the tree.
 

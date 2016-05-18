@@ -270,7 +270,7 @@ API related to documents management.
 Returns the document list for the given department.
 
 + Parameters
-    + departmentCode: 1 (number, required) - Id of the entity
+    + departmentCode: `ST000006` (string, required) - id of the entity
     + page: 1 (optional, number) - The page of results to return
     + pageSize: 25 (optional, number) - Amount of results to return
 
@@ -293,28 +293,22 @@ Uploads a new document for the given department.
 The uploaded document will be inserted as new document even if exists a document with same name.
 
 + Parameters
-    + departmentCode: 1 (number, required) - Id of the entity
+    + departmentCode: `ST000006` (string, required) - Id of the entity
 
 + Request (multipart/form-data)
 
 + Response 201 (application/json)
-
     + Headers
-
             Location: http://domain/departments/{departmentId}/documents/10
-
     + Attributes (Document1)
 
 + Response 400
     Returned when input does not pass validation.
-
     + Body
 
 + Response 500
     Returned when a generic error occours.
-
     + Body
-
 
 
 ## Document [/departments/{departmentCode}/documents/{id}]
@@ -323,7 +317,7 @@ The uploaded document will be inserted as new document even if exists a document
 Returns the document detail for the given id.
 
 + Parameters
-    + departmentCode: 1 (number, required) - Id of the entity
+    + departmentCode: `ST000006` (string, required) - id of the entity
     + id: 1 (number, required) - id of the document
 
 + Response 200
@@ -341,6 +335,10 @@ Returns the document detail for the given id.
 
 ### Delete document [DELETE]
 Deletes a document.
+
++ Parameters
+    + departmentCode: `ST000006` (string, required) - id of the entity
+    + id: 1 (number, required) - id of the document
 
 + Response 204
     Returned when the resource is successfully deleted.

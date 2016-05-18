@@ -15,11 +15,27 @@ API related to the tree management.
 
 ## Tree Node collection [/organizations/{structureTypeId}/revisions/{revisionId}/nodes]
 
-### List nodes [GET /organizations/{structureTypeId}/revisions/{revisionId}/nodes{?page,pageSize,sort,sortOrder}]
+### List nodes [GET /organizations/{structureTypeId}/revisions/{revisionId}/nodes{?page,pageSize,sort,sortOrder,searchQuery}]
 Returns the revision organization structure tree with assigned people.
 
+**TODO: WIP - the implementation does not yet receive the searchQuery param.**
+Takes a `searchQuery` parameter object defined as follows
+  + revision (required, number) - numeric id of the revision
+  + category (optional, boolean)
+  + linkablechildcode (optional, string)
+  + linkableparents (optional, boolean)
+  + movable (optional, boolean)
+  + erasable (optional, boolean)
+  + parentdeptcode (optional, string)
+  + deptcode (optional, string)department code
+  + typeRole (optional, string)
+  + deptstrict (optional, boolean)
+  + parentdeptlist (optional, boolean)
+  
+This action does not require authentication.
+
 + Parameters
-    + structureTypeId: BCP (string) - Structure type to filter for
+    + structureTypeId: BC (string) - Structure type to filter for
     + revisionId: 1 (required) - id of the requested revision or "active"
     + page: 1 (optional, number) - The page of results to return
     + pageSize: 25 (optional, number) - Amount of results to return
@@ -28,12 +44,46 @@ Returns the revision organization structure tree with assigned people.
         + Members
             + asc
             + desc
-    + searchQuery: `{"revision":"1", "category":"sxxx", "linkablechildcode":"Stewart", "linkableparents":false, "typerole": "ET_LEADER", "code": "xxxx", "parentcode": "yyyy"}` (optional)
+    + searchQuery: `{"revision":"1", "category":"DPT", "linkablechildcode":"Stewart", "linkableparents":false, "typerole": "ET_LEADER", "deptcode": "xxxx", "partentdeptcode": "yyyy", "movable": false, "erasable": false}` (optional)
 
 + Response 200 (application/json)
     + Attributes (object)
         + results (array[Node1, Node2, Node3, Node4, Node5, Node6, Node7, Node8, Node9], required) - array of nodes
         + Include PaginationDataTree9
+
+### Create Tree Node [POST /organizations/{structureTypeId}/revisions/{revisionId}/nodes]
+Create a new node into the tree.
+
++ Parameters
+    + structureTypeId: BC (string) - Structure type to filter for
+    + revisionId: 1 (required) - id of the requested revision or "active"
+
++ Request (application/json)
+    + Attributes
+        + code: `CMT00002` (string, required)
+        + description: `BC COMMITTEE 2` (required)
+        + parentId (number, optional)
+        + nodeType
+        + revision
+        + pathInfo
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /organizations/{structureTypeId}/revisions/{revisionId}/nodes/10
+
+    + Attributes (Node2b)
+
++ Response 400
+    Returned when the resource does not pass validation.
+
+    + Body
+
++ Response 500
+    Returned when a generic error occours.
+
+    + Body
 
 ## Tree Node [/organizations/{structureTypeId}/revisions/{revisionId}/nodes/{nodeId}]
 
@@ -101,39 +151,6 @@ When the `nodeType.id` of the node requested is `BC_CRIPROC`.
 
 + Response 200 (application/json)
     + Attributes (Node12Detail)
-
-
-### Create Tree Node COM [POST /organizations/{structureTypeId}/revisions/{revisionId}/nodes/COM]
-Create a new COM node into the tree.
-
-+ Parameters
-    + structureTypeId: BCP (string) - Structure type to filter for
-    + revisionId: 1 (required) - id of the requested revision or "active"
-
-+ Request (application/json)
-    + Attributes
-        + nodeId (number, optional)
-        + code: `CMT00002` (string, required)
-        + description: `BC COMMITTEE 2` (required)
-        + parentNodeId (number, optional)
-
-+ Response 201 (application/json)
-
-    + Headers
-
-            Location: /organizations/{structureTypeId}/revisions/{revisionId}/nodes/10
-
-    + Attributes (Node2b)
-
-+ Response 400
-    Returned when the required resource cannot be found.
-
-    + Body
-
-+ Response 500
-    Returned when a generic error occours.
-
-    + Body
 
 ### Create Tree Node ORG [POST /organizations/{structureTypeId}/revisions/{revisionId}/nodes/ORG]
 Create a new ORG node into the tree.

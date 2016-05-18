@@ -255,6 +255,43 @@ Does not delete the linked entities or the people.
 
     + Body
 
+###################
+# Group Departments
+###################
+
+CRUD API used to manage departments. Departments are equivalent to entities.
+
+## Departments collection [/organizations/{structureTypeId}/departments]
+
+### List Departments [GET /organizations/{structureTypeId}/departments{?page,pageSize,sort,sortOrder,searchQuery}]
+Retrieves a list of departments.
+
+Takes a `searchQuery` parameter object defined as follows
+  + categId (optional, string) - type of the required dep
+  + type (optional, string) - ignored parameter
+  + structTypeId (optional, string)
+  + revId (optional, number)
+  + linkable (optional, boolean)
+  
+This action does not require authentication.
+
++ Parameters
+
+    + structureTypeId: BC (string) - Structure type to filter for
+    + page: 1 (optional, number) - The page of results to return
+    + pageSize: 25 (optional, number) - Amount of results to return
+    + sort: description (optional) - Sorting order
+    + sortOrder: asc (enum, optional) - Sorting order
+        + Members
+            + asc
+            + desc
+    + searchQuery: `{"categId":"DPT", "type":"ignored", "structTypeId": "BC", "revId": 1, "linkable": false}` (optional)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + results (array[Department1, Department2], required) - array of departments
+        + Include PaginationDataTree2
+
 #######################
 # Group Documents
 #######################
@@ -761,6 +798,20 @@ Deletes a document.
 + city: VERONA (string, optional)
 + state: VR (string, optional)
 + country: Italy (string, optional)
+
+## Department1
++ code: BCORG001
++ description: BC ORGANIZATION
++ structureType
+    + id: BC
++ typeRoleId: BC_ORG
+
+## Department2
++ code: BCORG002
++ description: BC ORGANIZATION BIS
++ structureType
+    + id: BC
++ typeRoleId: BC_ORG
 
 ## Document1 (object)
 + id: 1 (number, required) - document id

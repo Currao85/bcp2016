@@ -85,6 +85,42 @@ Links a previously created node to the tree.
 
     + Body
 
+    
+### List Movable Nodes [GET  /organizations/{structureTypeId}/revisions/{revisionId}/nodes/movable]
+Retrieve a list of nodes that are classified as `movable` (i.e. nodes of category `DPT` and with flag `movable == true`).
+
++ Parameters
+    + structureTypeId: BC (string) - Structure type to filter for
+    + revisionId: 1 (required) - id of the requested revision or "active"
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + results (array[Node1, Node2, Node3, Node4, Node5, Node6, Node7, Node8, Node9], required) - array of nodes
+        + Include PaginationDataTree9
+
++ Response 500
+    Returned when a generic error occours.
+
+    + Body
+    
+    
+### List Erasable Nodes [GET  /organizations/{structureTypeId}/revisions/{revisionId}/nodes/movable]
+Retrieve a list of nodes that are classified as `erasable` (i.e. nodes of category `DPT` and with flag `erasable == true`).
+
++ Parameters
+    + structureTypeId: BC (string) - Structure type to filter for
+    + revisionId: 1 (required) - id of the requested revision or "active"
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + results (array[Node1, Node2, Node3, Node4, Node5, Node6, Node7, Node8, Node9], required) - array of nodes
+        + Include PaginationDataTree9
+
++ Response 500
+    Returned when a generic error occours.
+
+    + Body
+
 ## Tree Node [/organizations/{structureTypeId}/revisions/{revisionId}/nodes/{nodeId}]
 
 ### Node info [GET /organizations/{structureTypeId}/revisions/{revisionId}/nodes/{nodeId}{?page,pageSize,sort,sortOrder}]
@@ -183,13 +219,14 @@ Move the node (and all its children) in the tree.
 
     + Body
 
-### Delete Tree Node [DELETE /organizations/{structureTypeId}/revisions/{revisionId}/nodes/{nodeId}{?recursively,entity,entityRecursively}]
-Deletes a node in the tree and, eventually, all the children nodes.
+### Delete Tree Node [DELETE]
+Deletes a node in the tree and all the children nodes. 
+Does not delete the linked entities or the people.
 
 + Parameters
-    + recursively: true (string) - delete children or not
-    + entity: true (string) - delete node info too or not
-    + entityRecursively: true (string) - delete children node info too or not
+    + nodeId: 1 (number) - id of the node
+    + structureTypeId: BC - Structure type to filter for
+    + revisionId: 1 (number) - id of the requested revision or "active"
 
 + Response 204
 

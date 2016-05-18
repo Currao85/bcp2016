@@ -8,7 +8,7 @@ Polls is a simple API allowing consumers to view polls and vote in them.
 
 
 #######################
-# Group Tree Structure - DRAFT
+# Group Tree Structure
 #######################
 
 API related to the tree management.
@@ -85,7 +85,6 @@ Links a previously created node to the tree.
 
     + Body
 
-
 ### List Movable Nodes [GET  /organizations/{structureTypeId}/revisions/{revisionId}/nodes/movable]
 Retrieve a list of nodes that are classified as `movable` (i.e. nodes of category `DPT` and with flag `movable == true`).
 
@@ -127,7 +126,7 @@ Retrieve a list of nodes that are classified as `erasable` (i.e. nodes of catego
 Returns the info for the node of the given type id.
 
 + Parameters
-    + structureTypeId: BCP (string) - Structure type to filter for
+    + structureTypeId: BC - Structure type to filter for
     + revisionId: 1 (number) - id of the requested revision or "active"
     + nodeId: 1 (number) - id of the node
     + page: 1 (optional, number) - The page of results to return

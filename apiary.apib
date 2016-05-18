@@ -31,7 +31,7 @@ Takes a `searchQuery` parameter object defined as follows
   + typeRole (optional, string)
   + deptstrict (optional, boolean)
   + parentdeptlist (optional, boolean)
-  
+
 This action does not require authentication.
 
 + Parameters
@@ -85,7 +85,7 @@ Links a previously created node to the tree.
 
     + Body
 
-    
+
 ### List Movable Nodes [GET  /organizations/{structureTypeId}/revisions/{revisionId}/nodes/movable]
 Retrieve a list of nodes that are classified as `movable` (i.e. nodes of category `DPT` and with flag `movable == true`).
 
@@ -102,8 +102,8 @@ Retrieve a list of nodes that are classified as `movable` (i.e. nodes of categor
     Returned when a generic error occours.
 
     + Body
-    
-    
+
+
 ### List Erasable Nodes [GET  /organizations/{structureTypeId}/revisions/{revisionId}/nodes/movable]
 Retrieve a list of nodes that are classified as `erasable` (i.e. nodes of category `DPT` and with flag `erasable == true`).
 
@@ -220,7 +220,7 @@ Move the node (and all its children) in the tree.
         + description: `BC COMMITTEE 2` (required) - ignored parameter
         + parentId (number, required) - new parent of the node
         + nodeType (object) - ignored parameter
-        + revision (object) - ignored parameter 
+        + revision (object) - ignored parameter
         + pathInfo - ignored parameter
 
 + Response 200 (application/json)
@@ -238,7 +238,7 @@ Move the node (and all its children) in the tree.
     + Body
 
 ### Delete Tree Node [DELETE]
-Deletes a node in the tree and all the children nodes. 
+Deletes a node in the tree and all the children nodes.
 Does not delete the linked entities or the people.
 
 + Parameters
@@ -259,26 +259,28 @@ Does not delete the linked entities or the people.
     + Body
 
 #######################
-# Group Documents - DRAFT
+# Group Documents
 #######################
 
 API related to documents management.
 
-## Documents collection [/organizations/{structureTypeId}/departments/{departmentId}/documents{?page,pageSize,sort,sortOrder}]
+## Documents collection [/departments/{departmentCode}/documents{?page,pageSize}]
 
 ### List documents [GET]
 Returns the document list for the given department.
 
 + Parameters
-    + structureTypeId: BC (string) - Structure type to filter for
-    + departmentId: 1 (number, required) - Id of the entity
+    + departmentCode: 1 (number, required) - Id of the entity
     + page: 1 (optional, number) - The page of results to return
     + pageSize: 25 (optional, number) - Amount of results to return
-    + sort: description (optional) - Sorting order
-    + sortOrder: asc (enum, optional) - Sorting order
-        + Members
-            + asc
-            + desc
+
+<!--
++ sort: description (optional) - Sorting order
++ sortOrder: asc (enum, optional) - Sorting order
+    + Members
+        + asc
+        + desc
+-->
 
 + Response 200 (application/json)
     + Attributes (object)
@@ -291,8 +293,7 @@ Uploads a new document for the given department.
 The uploaded document will be inserted as new document even if exists a document with same name.
 
 + Parameters
-    + structureTypeId: BCP (string) - Structure type to filter for
-    + departmentId: 1 (number, required) - Id of the entity
+    + departmentCode: 1 (number, required) - Id of the entity
 
 + Request (multipart/form-data)
 
@@ -300,12 +301,12 @@ The uploaded document will be inserted as new document even if exists a document
 
     + Headers
 
-            Location: /organizations/{structureTypeId}/revisions/{revisionId}/documents/10
+            Location: http://domain/departments/{departmentId}/documents/10
 
     + Attributes (Document1)
 
 + Response 400
-    Returned when the required resource cannot be found.
+    Returned when input does not pass validation.
 
     + Body
 
@@ -316,14 +317,19 @@ The uploaded document will be inserted as new document even if exists a document
 
 
 
-## Document [/organizations/{structureTypeId}/documents/{id}]
+## Document [/departments/{departmentCode}/documents/{id}]
 
 ### Read document [GET]
 Returns the document detail for the given id.
 
 + Parameters
-    + structureTypeId: BCP (string) - Structure type to filter for
+    + departmentCode: 1 (number, required) - Id of the entity
     + id: 1 (number, required) - id of the document
+
++ Response 200
+    + Headers
+        Content-Type:application/XYZ
+    + Body
 
 + Response 404
     Returned when the required resource cannot be found.
@@ -331,20 +337,6 @@ Returns the document detail for the given id.
 
 + Response 500
     Returned when a generic error occours.
-    + Body
-
-+ Request
-When the document is an excel file
-    + Body
-
-+ Response 200 (application/vnd.ms-excel)
-    + Body
-
-+ Request
-When the document is a word file
-    + Body
-
-+ Response 200 (application/vnd.openxmlformats-officedocument.wordprocessingml.document)
     + Body
 
 ### Delete document [DELETE]
@@ -779,16 +771,16 @@ Deletes a document.
 + id: 1 (number, required) - document id
 + code: `C16.10.01` (string, required) - department code
 + fileName: `document1.xlsx` (string, required)
-+ uploaddate: `2016-05-01` (string, required)
++ uploaddate: `2016-05-18T11:51:15` (string, required)
 
 ## Document2 (object)
 + id: 2 (number, required) - document id
 + code: `C16.10.01` (string, required) - department code
 + fileName: `document2.docx` (string, required)
-+ uploaddate: `2016-0-15` (string, required)
++ uploaddate: `2016-05-18T12:13:42` (string, required)
 
 ## Document3 (object)
 + id: 3 (number, required) - document id
 + code: `ST000003` (string, required) - department code
 + fileName: `anotherdocument.pptx` (string, required)
-+ uploaddate: `2016-01-01` (string, required)
++ uploaddate: `2016-05-17T16:15:26` (string, required)

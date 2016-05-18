@@ -152,162 +152,29 @@ When the `nodeType.id` of the node requested is `BC_CRIPROC`.
 + Response 200 (application/json)
     + Attributes (Node12Detail)
 
-### Create Tree Node ORG [POST /organizations/{structureTypeId}/revisions/{revisionId}/nodes/ORG]
-Create a new ORG node into the tree.
+### Move Tree Node [PUT]
+Move the node (and all its children) in the tree.
 
 + Parameters
-    + structureTypeId: BCP (string) - Structure type to filter for
-    + revisionId: 1 (required) - id of the requested revision or "active"
+    + nodeId: 1 (number) - id of the node
+    + structureTypeId: BC - Structure type to filter for
+    + revisionId: 1 (number) - id of the requested revision or "active"
 
 + Request (application/json)
     + Attributes
-        + nodeId (number, optional)
-        + code: `BCORG002` (string, required)
-        + description: `BC ORGANIZATION 2` (required)
-        + parentNodeId (number, optional)
+        + code: `CMT00002` (string, required) - ignored parameter
+        + description: `BC COMMITTEE 2` (required) - ignored parameter
+        + parentId (number, required) - new parent of the node
+        + nodeType (object) - ignored parameter
+        + revision (object) - ignored parameter 
+        + pathInfo - ignored parameter
 
-+ Response 201 (application/json)
++ Response 200 (application/json)
 
-    + Headers
-
-            Location: /organizations/{structureTypeId}/revisions/{revisionId}/nodes/11
-
-    + Attributes (Node3b)
+    + Attributes (Node2b)
 
 + Response 400
-    Returned when the required resource cannot be found.
-
-    + Body
-
-+ Response 500
-    Returned when a generic error occours.
-
-    + Body
-
-### Create Tree Node CRI [POST /organizations/{structureTypeId}/revisions/{revisionId}/nodes/CRI]
-Create a new CRI node into the tree.
-
-+ Parameters
-    + structureTypeId: BCP (string) - Structure type to filter for
-    + revisionId: 1 (required) - id of the requested revision or "active"
-
-+ Request (application/json)
-    + Attributes
-        + nodeId (number, optional)
-        + code: `C09.1.02` (string, required)
-        + description: `INCIDENT MANAGEMENT 2` (required)
-        + note: `notes` (required)
-        + parentNodeId (number, optional)
-
-+ Response 201 (application/json)
-
-    + Headers
-
-            Location: /organizations/{structureTypeId}/revisions/{revisionId}/nodes/12
-
-    + Attributes (Node4b)
-
-+ Response 400
-    Returned when the required resource cannot be found.
-
-    + Body
-
-+ Response 500
-    Returned when a generic error occours.
-
-    + Body
-
-### Create Tree Node SIT [POST /organizations/{structureTypeId}/revisions/{revisionId}/nodes/SIT]
-Create a new SIT node into the tree.
-
-+ Parameters
-    + structureTypeId: BCP (string) - Structure type to filter for
-    + revisionId: 1 (required) - id of the requested revision or "active"
-
-+ Request (application/json)
-    + Attributes
-        + nodeId (number, optional)
-        + code: `ST000006` (string, required)
-        + description: `VERONA 2` (required)
-        + address: `via verona 33` (required)
-        + country: `VERONA` (required)
-        + telephone: `0000 111111` (required)
-        + parentNodeId (number, optional)
-
-+ Response 201 (application/json)
-
-    + Headers
-
-            Location: /organizations/{structureTypeId}/revisions/{revisionId}/nodes/13
-
-    + Attributes (Node6b)
-
-+ Response 400
-    Returned when the required resource cannot be found.
-
-    + Body
-
-+ Response 500
-    Returned when a generic error occours.
-
-    + Body
-
-### Create Tree Node ET [POST /organizations/{structureTypeId}/revisions/{revisionId}/nodes/ET]
-Create a new ET node into the tree.
-
-+ Parameters
-    + structureTypeId: BCP (string) - Structure type to filter for
-    + revisionId: 1 (required) - id of the requested revision or "active"
-
-+ Request (application/json)
-    + Attributes
-        + nodeId (number, optional)
-        + code: `ET000068` (string, required)
-        + description: `EMERGENCY TEAM 68 - INCIDENT MANAGEMENT 2` (required)
-        + parentNodeId (number, optional)
-
-+ Response 201 (application/json)
-
-    + Headers
-
-            Location: /organizations/{structureTypeId}/revisions/{revisionId}/nodes/14
-
-    + Attributes (Node8b)
-
-+ Response 400
-    Returned when the required resource cannot be found.
-
-    + Body
-
-+ Response 500
-    Returned when a generic error occours.
-
-    + Body
-
-### Create Tree Node Profile [POST /organizations/{structureTypeId}/revisions/{revisionId}/nodes/{nodeType}]
-Create a new Profile node into the tree.
-
-+ Parameters
-    + structureTypeId: BCP (string) - Structure type to filter for
-    + revisionId: 1 (required) - id of the requested revision or "active"
-    + nodeType: CHA (required) - the node type (CHA, MEM, DEL, CRM, BCM, SM, UM, CM, TL, TM)
-
-+ Request (application/json)
-    + Attributes
-        + nodeId (number, optional)
-        + profileId: 1 (number, required)
-        + parentNodeId (number, optional)
-
-+ Response 201 (application/json)
-
-    + Headers
-
-            Location: /organizations/{structureTypeId}/revisions/{revisionId}/nodes/14
-
-    + Attributes (Node8b)
-
-+ Response 400
-    Returned when the required resource cannot be found.
+    Returned when the resource does not pass validation.
 
     + Body
 

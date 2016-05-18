@@ -307,7 +307,7 @@ This action can be executed by users with `ADMIN` role.
 + Request (application/json)
 This creates a generic Department.
 
-    + Attributes (Create Department)
+    + Attributes (Input Department)
 
 
 + Response 201 (application/json)
@@ -321,7 +321,7 @@ This creates a generic Department.
 + Request (application/json)
 This creates a Site.
 
-    + Attributes (Create Site)
+    + Attributes (Input Site)
 
 
 + Response 201 (application/json)
@@ -335,6 +335,98 @@ This creates a Site.
 
 + Response 400
     Returned when the resource does not pass validation.
+
+    + Body
+
++ Response 500
+    Returned when a generic error occours.
+
+    + Body
+
+## Department [/organizations/{structureTypeId}/departments/{departmentId}]
+
++ Parameters
+    + nodeId: 1 (number) - id of the node
+    + structureTypeId: BC - Structure type to filter for
+### Read Department [GET]
+Returns the info for the department of the given type id.
+
+This action does not require authentication.
+
++ Request
+When the department is **not** a `BC_SITE`.
+
+    + Body
+
++ Response 200 (application/json)
+    + Attributes (Department1)
+
++ Request
+When the department is a `BC_SITE`.
+
+    + Body
+
++ Response 200 (application/json)
+    + Attributes (DepartmentSite1)
+    
++ Response 404
+    Returned when the required resource cannot be found.
+
+    + Body
+
++ Response 500
+    Returned when a generic error occours.
+
+    + Body
+
+### Update Department [PUT]
+
+This action can be executed by users with `ADMIN` role.
+
++ Request
+Update a department whose type is **not** `BC_SITE`.
+
+    + Attributes (Input Department)
+
++ Response 200 (application/json)
+    + Attributes (Department1)
+
++ Request (application/json)
+Update a department of type `BC_SITE`.
+
+    + Attributes (Input Site)
+
++ Response 200 (application/json)
+
+    + Attributes (DepartmentSite1)
+
+    
++ Response 400
+    Returned when the resource does not pass validation.
+
+    + Body
+
++ Response 500
+    Returned when a generic error occours.
+
+    + Body
+    
++ Response 400
+    Returned when the resource does not pass validation.
+
+    + Body
+
++ Response 500
+    Returned when a generic error occours.
+
+    + Body
+
+### Delete Department [DELETE]
+
++ Response 204
+
++ Response 404
+    Returned when the required resource cannot be found.
 
     + Body
 
@@ -868,13 +960,13 @@ Deletes a document.
 + location (Location1)
 + telephone: 1235467 (string)
 
-## Create Department
+## Input Department
 + code: `CMT00002` - code of the department. Must be unique
 + description: `BC COMMITTEE 2` (required)
 + notes: `xxxx` (number, optional) - additional text
 + typeRoleId:  (required) - type of the department
 
-## Create Site (Create Department)
+## Input Site (Input Department)
 + typeRoleId: BC_SITE
 + location (Location)
 + telephone: 123456 (string)

@@ -292,6 +292,57 @@ This action does not require authentication.
         + results (array[Department1, Department2], required) - array of departments
         + Include PaginationDataTree2
 
+### Create Department [POST]
+Create a new department. The newly created department does won't yet be linked
+to any tree structure.
+
+Depending on the request attributes, either a generic Department or a Site will
+be created.
+
+This action can be executed by users with `ADMIN` role.
+
++ Parameters
+    + structureTypeId: BC - Structure type to filter for
+
++ Request (application/json)
+This creates a generic Department.
+
+    + Attributes (Create Department)
+
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /organizations/{structureTypeId}/departments/10
+
+    + Attributes (Department1)
+
++ Request (application/json)
+This creates a Site.
+
+    + Attributes (Create Site)
+
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /organizations/{structureTypeId}/departments/10
+
+    + Attributes (DepartmentSite1)
+
+
++ Response 400
+    Returned when the resource does not pass validation.
+
+    + Body
+
++ Response 500
+    Returned when a generic error occours.
+
+    + Body
+
 #######################
 # Group Documents
 #######################
@@ -791,13 +842,13 @@ Deletes a document.
 + code: `ST000003` (string)
 + description: `VERONA` (string)
 
-## Location1
+## Location
++ street: Via Mazzini
++ city: VERONA
++ country: Italy 
+
+## Location1 (Location)
 + id: 2 (required, number)
-+ street: Via Mazzini (string)
-+ zip: 37121 (string, optional)
-+ city: VERONA (string, optional)
-+ state: VR (string, optional)
-+ country: Italy (string, optional)
 
 ## Department1
 + code: BCORG001
@@ -812,6 +863,22 @@ Deletes a document.
 + structureType
     + id: BC
 + typeRoleId: BC_ORG
+
+## DepartmentSite1 (Department1)
++ location (Location1)
++ telephone: 1235467 (string)
+
+## Create Department
++ code: `CMT00002` - code of the department. Must be unique
++ description: `BC COMMITTEE 2` (required)
++ notes: `xxxx` (number, optional) - additional text
++ typeRoleId:  (required) - type of the department
+
+## Create Site (Create Department)
++ typeRoleId: BC_SITE
++ location (Location)
++ telephone: 123456 (string)
+
 
 ## Document1 (object)
 + id: 1 (number, required) - document id

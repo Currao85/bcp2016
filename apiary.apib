@@ -51,8 +51,8 @@ This action does not require authentication.
         + results (array[Node1, Node2, Node3, Node4, Node5, Node6, Node7, Node8, Node9], required) - array of nodes
         + Include PaginationDataTree9
 
-### Create Tree Node [POST /organizations/{structureTypeId}/revisions/{revisionId}/nodes]
-Create a new node into the tree.
+### Link Tree Node [POST /organizations/{structureTypeId}/revisions/{revisionId}/nodes]
+Links a previously created node to the tree.
 
 + Parameters
     + structureTypeId: BC (string) - Structure type to filter for
@@ -60,12 +60,12 @@ Create a new node into the tree.
 
 + Request (application/json)
     + Attributes
-        + code: `CMT00002` (string, required)
+        + code: `CMT00002` (string, required) - entity which is being linked
         + description: `BC COMMITTEE 2` (required)
         + parentId (number, optional)
-        + nodeType
-        + revision
-        + pathInfo
+        + nodeType (object) - type of the linked content node. Only the id parameter is considered.
+        + revision (object) - revision to which this node belongs to. Only the id parameter is considered.
+        + pathInfo - ignored parameter
 
 + Response 201 (application/json)
 

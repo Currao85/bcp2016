@@ -5,7 +5,37 @@ HOST: http://emp.vts.it/vts-bcp-rest-api
 
 Service Oriented Architecture specified for the BCP project.
 
+#######################
+# Group Organizations
+#######################
 
+## Organization types collections [/organizations/types]
+
++ Attributes (object)
+  + results (array, required) - array of resources
+      + (object)
+          + id: `UO` (string, required)
+          + description: `Business` (string, required)
+          + activeRevision: 1 (number, required)
+      + (object)
+          + id: `FU` (string, required)
+          + description: `Functional` (string, required)
+          + activeRevision: 7 (number, required)
+      + (object)
+          + id: `OT` (string, required)
+          + description: `Other` (string, required)
+          + activeRevision: 12 (number, required)
+      + paginationData (object, required) - Informations required for pagination
+          + count: 3 (number,required) - total number of resources
+          + pageNum: 1 (number, required) - slice of resources returned
+          + pageSize: 20 (number, required) - size of the slice
+
+### List types [GET]
+The list of structure types.
+**TODO: should this exist? As of 2016-05-19 returns only the `OU` organization**
+
++ Response 200 (application/json)
+  + Attributes (Organization types collections)
 
 #######################
 # Group Tree Structure

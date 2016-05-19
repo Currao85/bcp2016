@@ -611,6 +611,35 @@ This action can be executed by users with `ADMIN` role.
 
     + Body
 
+    
+#######################
+# Group Roles
+#######################
+
+API to interact with departments' / profiles' roles (`TYPEROLE` on the DB).
+
+## Roles collections [/organizations/{structureTypeId}/roles{?searchQuery}]
+Takes a `searchQuery` parameter object defined as follows
+  + repDeptStrict (optional, boolean)
+  + repDeptCode (optional, string)
+  + repParentDeptCode (optional, string)
+  + repTypeRole (optional, string)
+
+This action does not require authentication.
+
++ Parameters
+  + structTypeId: BC (string) - Structure type to filter for
+  + searchQuery: `{}` 
+
++ Attributes (object)
+  + results (array[TypeRole1, TypeRole2, TypeRole3], required) - array of nodes
+  + Include PaginationDataTree3
+
+### List Roles [GET]
+
++ Response 200 (application/json)
+  + Attributes (Roles collections)
+
 #######################
 # Group Documents
 #######################
@@ -1173,6 +1202,25 @@ Deletes a document.
 + location (Location)
 + telephone: 123456 (string)
 
+## TypeRole
++ description: `COMMITTEE CHAIRMAN`
++ insertable (boolean)
++ editable (boolean)
++ erasable (boolean)
++ documentable (boolean) - if the type can have documents attached
++ movable (boolean)
++ maxTypeCount (number) - how many nodes of this type can be attached to the tree
++ maxEntityCount (number) - how many duplicate entities of the same
+ department/person of this type can be attached to the tree
+
+## TypeRole1 (TypeRole)
++ id: BC_CHAIRMA
+
+## TypeRole2 (TypeRole)
++ id: BC_COEMAN
+
+## TypeRole3 (TypeRole)
++ id: BC_ET
 
 ## Document1 (object)
 + id: 1 (number, required) - document id

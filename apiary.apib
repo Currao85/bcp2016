@@ -492,10 +492,9 @@ informations.
 Retrieves a list of departments.
 
 Takes a `searchQuery` parameter object defined as follows
-  + categId (optional, string) - type of the required dep
-  + type (optional, string) - ignored parameter
-  + structTypeId (optional, string)
-  + revId (optional, number)
+  + category (optional, string) - category of the required dep
+  + type (optional, string) - typerole of the required dep
+  + revision (optional, number) 
   + linkable (optional, boolean)
   
 This action does not require authentication.
@@ -510,7 +509,7 @@ This action does not require authentication.
         + Members
             + asc
             + desc
-    + searchQuery: `{"categId":"DPT", "type":"ignored", "structTypeId": "BC", "revId": 1, "linkable": false}` (optional)
+    + searchQuery: `{"category":"DPT", "type":"BC_SITE", "structTypeId": "BC", "revision": 1, "linkable": false}` (optional)
 
 + Response 200 (application/json)
     + Attributes (object)
@@ -571,10 +570,11 @@ This creates a Site.
 ## Department [/organizations/{structureTypeId}/departments/{departmentId}]
 
 + Parameters
-    + nodeId: 1 (number) - id of the node
     + structureTypeId: BC - Structure type to filter for
+    + departmentId: ST00003 (string) - code of the department
+
 ### Read Department [GET]
-Returns the info for the department of the given type id.
+Returns the info for the department with a given code.
 
 This action does not require authentication.
 
@@ -670,10 +670,13 @@ API to interact with departments' / profiles' roles (`TYPEROLE` on the DB).
 
 ## Roles collections [/organizations/{structureTypeId}/roles{?searchQuery}]
 Takes a `searchQuery` parameter object defined as follows
-  + repDeptStrict (optional, boolean)
-  + repDeptCode (optional, string)
-  + repParentDeptCode (optional, string)
-  + repTypeRole (optional, string)
+  + repdeptstrict (optional, boolean)
+  + repdeptcode (optional, string)
+  + repparentdeptcode (optional, string)
+  + reptyperole (optional, string)
+  + category (optional, string) - code of the category for requested roleupdates
+  + linkablechildtype (optional, string) - code of a given linkable child code
+  + linkableparenttype (optional, string) - code of a given linkable parent code
 
 This action does not require authentication.
 
@@ -1271,10 +1274,12 @@ Deletes a document.
 ## Input Department
 + code: `CMT00002` - code of the department. Must be unique
 + description: `BC COMMITTEE 2` (required)
-+ notes: `xxxx` (number, optional) - additional text
-+ typeRoleId:  (required) - type of the department
++ notes: `Testo nota` (optional) - additional text
++ typeRoleId: `BC_ET` (required) - type of the department
 
-## Input Site (Input Department)
+## Input Site 
++ code: `ST00002` - code of the site. Must be unique
++ description: `BC SITE 2` (required)
 + typeRoleId: BC_SITE
 + location (Location)
 + telephone: 123456 (string)

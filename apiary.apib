@@ -54,7 +54,6 @@ The list of structure types.
 Returns the revisions list.
 
 + Parameters
-  + structTypeId: BC (string) - Structure type to filter for
   + searchQuery: {} (object, required) - json filter
   + page: 1 (optional, number) - The page of results to return
   + sort: description (optional) - Sorting order
@@ -69,12 +68,10 @@ Creates a new revision.
 
 This action is available only to `ADMIN` roles.
 
-+ Parameters
-  + type: UO (string) - Reference structure type
 
 + Request (application/json)
 
-    + Attributes (Revision Detail)
+    + Attributes (RevisionMini1)
 
 + Response 201 (application/json)
 
@@ -82,7 +79,7 @@ This action is available only to `ADMIN` roles.
 
             Location: /organizations/UO/revisions/123
 
-    + Attributes (Revision1)
+    + Attributes (RevisionMini2)
 
 + Response 400
     Returned when the required resource cannot be found.
@@ -822,6 +819,19 @@ Deletes a document.
 ## StructureTypeIdDescr
 + id: `BC`
 + description: `Business Continuity`
+
+## RevisionMini1
++ description: `Struttura 1`
+
+## RevisionMini2
++ description: `Struttura 1`
++ lastModify: `2016-03-05`
++ status: `draft` (enum) - status of the revision
+    + draft
+    + active
+    + expired
++ structureType (StructureTypeIdDescr)
++ id: 1
 
 ## Revision Detail
 + description: `Struttura 1`

@@ -190,15 +190,20 @@ Returns the revision organization structure tree with assigned people.
 
 **TODO: WIP - the implementation does not yet receive the searchQuery param.**
 Takes a `searchQuery` parameter object defined as follows
-  + revId (required, number) - numeric id of the revision
-  + categId (optional, boolean)
-  + linkableChildCode (optional, string)
-  + linkableParentsSearch (optional, boolean)
-  + movable (optional, boolean)
+  + revision (required, number) - numeric id of the revision
+  + category (optional, boolean) - code of note type category (DPT,PPL)
+  + nodetype (optional, string) - node type
+  + linkablechildcode (optional, string)
+  + linkablechildnode (optional, number)
+  + linkablepersondepartments (optional, string)
+  + movable (optional, boolean) 
   + erasable (optional, boolean)
-  + parentDeptCode (optional, string)
-  + deptCode (optional, string)department code
-  + typeRole (optional, string)
+  + repparentdeptcode (optional, string)
+  + repdeptcode (optional, string)  
+  + reptyperole (optional, string)  
+  + repdeptstrict (optional, boolean)  
+  + repparentdeptlist (optional, string)  
+  
   
 This action does not require authentication.
 
@@ -212,7 +217,7 @@ This action does not require authentication.
         + Members
             + asc
             + desc
-    + searchQuery: `{"revId":"1", "categId":"DPT", "linkableChildCode":"Stewart", "linkableParentsSearch":false, "movable": false, "erasable": false, "parentDeptCode": "yyyy", "deptCode": "xxxx", "typeRole": "ET_LEADER", "deptStrict": false, "parentDeptList": false}` (optional)
+    + searchQuery: `{"revision":"1", "category":"DPT", "linkablechildcode":"xxxxx", "movable": false, "erasable": false, "repparentdeptcode": "yyyy", "repdeptcode": "xxxx", "nodetype": "ET_LEADER", "repdeptstrict": false, "parentDeptList": false}` (optional)
 
 + Response 200 (application/json)
     + Attributes (object)
@@ -291,7 +296,7 @@ Retrieve a list of nodes that are classified as `erasable` (i.e. nodes of catego
 ## Tree Node [/organizations/{structureTypeId}/revisions/{revisionId}/nodes/{nodeId}]
 
 ### Node info [GET /organizations/{structureTypeId}/revisions/{revisionId}/nodes/{nodeId}{?page,pageSize,sort,sortOrder}]
-Returns the info for the node of the given type id.
+Returns the info for the node of the given id.
 
 + Parameters
     + structureTypeId: BC - Structure type to filter for
@@ -316,7 +321,7 @@ Returns the info for the node of the given type id.
     + Body
 
 + Request
-When the `nodeType.id` of the node requested is `BC_SITE`.
+When the `nodeType.typeGroup.id` of the node requested is `BC_SITE`.
 
     + Body
 
@@ -324,7 +329,7 @@ When the `nodeType.id` of the node requested is `BC_SITE`.
     + Attributes (Node6Detail)
 
 + Request
-When the `nodeType.id` of the node requested is `BC_CHAIRMA`, `BC_MEMBER`, `BC_CRIMAN`, `BC_MANAGER`, `BC_SERVMAN`, `BC_UNITMAN`, `BC_ETLEAD`, `BC_ETMEMB`, `BC_ETDEPUT`, `BC_COEMAN`, `BC_PROCOWN`, `BC_PROCFOC`, `BC_PROCDEP`, `BC_SITEMAN`, `BC_COMMAN`.
+When the `nodeType.typeGroup.id` of the node requested is `BC_CHAIRMA`, `BC_MEMBER`, `BC_CRIMAN`, `BC_MANAGER`, `BC_SERVMAN`, `BC_UNITMAN`, `BC_ETLEAD`, `BC_ETMEMB`, `BC_ETDEPUT`, `BC_COEMAN`, `BC_PROCOWN`, `BC_PROCFOC`, `BC_PROCDEP`, `BC_SITEMAN`, `BC_COMMAN`.
 
     + Body
 
@@ -332,7 +337,7 @@ When the `nodeType.id` of the node requested is `BC_CHAIRMA`, `BC_MEMBER`, `BC_C
     + Attributes (Node10Detail)
 
 + Request
-When the `nodeType.id` of the node requested is `BC_COMM`, `BC_ET`.
+When the `nodeType.typeGroup.id` of the node requested is `BC_COMM`, `BC_ET`.
 
     + Body
 
@@ -340,7 +345,7 @@ When the `nodeType.id` of the node requested is `BC_COMM`, `BC_ET`.
     + Attributes (Node2Detail)
 
 + Request
-When the `nodeType.id` of the node requested is `BC_ORG`.
+When the `nodeType.typeGroup.id` of the node requested is `BC_ORG`.
 
     + Body
 
@@ -878,10 +883,14 @@ Deletes a document.
 + nodeType (NodeType1)
 + code: `BCPROOT` (required, string)
 + description: `BCP` (required, string)
++ pathInfo: `BCP`  
 
 ## NodeType1 (object)
 + id: `BC_ROOT` (required, string)
 + description: `BCP` (required, string)
++ editable: `false` (boolean)
++ documentable: `false` (boolean)
++ typeGroup (TypeGroup1)
 
 ## Node2 (object)
 + id: 2 (required, number)
@@ -889,17 +898,22 @@ Deletes a document.
 + nodeType (NodeType2)
 + code: `CMT00001` (required, string)
 + description: `BC COMMITTEE` (required, string)
++ pathInfo: `BCP`  
 
 ## NodeType2 (object)
 + id: `BC_COMM` (required, string)
 + description: `BC_COMMITTEE` (required, string)
++ editable: `false` (boolean)
++ documentable: `false` (boolean)
++ typeGroup (TypeGroup2)
 
 ## Node2b (object)
 + id: 10 (required, number)
 + parentId (number)
-+ nodeTypeId: `COM` (required, string)
++ nodeType (NodeType2)
 + code: `CMT00002` (required, string)
 + description: `BC COMMITTEE 2` (required, string)
++ pathInfo: `BCP`  
 
 ## Node2Detail (Node2)
 + contentDetail (object)
@@ -912,17 +926,24 @@ Deletes a document.
 + nodeType (NodeType3)
 + code: `BCORG001` (required, string)
 + description: `BC ORGANIZATION` (required, string)
++ pathInfo: `BCP`  
 
 ## NodeType3 (object)
 + id: `BC_ORG` (required, string)
 + description: `BC_ORGANIZATION` (required, string)
++ editable: `false` (boolean)
++ documentable: `false` (boolean)
++ typeGroup (TypeGroup3)
+
 
 ## Node3b (object)
 + id: 11 (required, number)
 + parentId (number)
-+ nodeTypeId: `ORG` (required, string)
++ nodeType (NodeType3)
 + code: `BCORG002` (required, string)
 + description: `BC ORGANIZATION 2` (required, string)
++ pathInfo: `BCP`  
+
 
 ## Node4 (object)
 + id: 9 (required, number)
@@ -930,15 +951,20 @@ Deletes a document.
 + nodeType (NodeType4)
 + code: `C09.1.01` (required, string)
 + description: `INCIDENT MANAGEMENT` (required, string)
++ pathInfo: `BC ORGANIZATION 2`  
+
 
 ## NodeType4 (object)
 + id: `BC_CRIPROC` (required, string)
 + description: `BC_CRITICAL_PROCESS` (required, string)
++ editable: `true` (boolean)
++ documentable: `false` (boolean)
++ typeGroup (TypeGroup4)
 
 ## Node4b (object)
 + id: 12 (required, number)
 + parentId (required, number)
-+ nodeTypeId: `CRI` (required, string)
++ nodeType (NodeType4)
 + code: `C09.1.02` (required, string)
 + description: `INCIDENT MANAGEMENT 2` (required, string)
 
@@ -952,6 +978,7 @@ Deletes a document.
 ## NodeType6 (object)
 + id: `BC_SITE` (required, string)
 + description: `BC_SITE` (required, string)
++ typeGroup (TypeGroup6)
 
 ## Node6 (object)
 + id: 16 (required, number)
@@ -963,7 +990,7 @@ Deletes a document.
 ## Node6b (object)
 + id: 13 (required, number)
 + parentId (required, number)
-+ nodeTypeId: `SIT` (required, string)
++ nodeType (NodeType6)
 + code: `ST000003` (required, string)
 + description: `VERONA` (required, string)
 
@@ -987,6 +1014,7 @@ Deletes a document.
 ## NodeType8 (object)
 + id: `BC_ET` (required, string)
 + description: `EMERGENCY TEAM` (required, string)
++ typeGroup (TypeGroup8)
 
 ## Node8b (object)
 + id: 14 (required, number)
@@ -1005,6 +1033,7 @@ Deletes a document.
 ## NodeType9 (object)
 + id: `BC_CRIMAN` (required, string)
 + description: `COMMITTEE CRISIS MANAGER` (required, string)
++ typeGroup (TypeGroup9)
 
 ## Node9Detail (Node9)
 + contentDetail (ProfileDetail)
@@ -1019,6 +1048,8 @@ Deletes a document.
 ## NodeType10 (object)
 + id: `BC_CRIMAN` (required, string)
 + description: `COMMITTEE CRISIS MANAGER` (required, string)
++ typeGroup (TypeGroup9)
+
 
 ## Node10Detail (Node10)
 + contentDetail (RoleProfile11)
@@ -1284,16 +1315,32 @@ Deletes a document.
 + location (Location)
 + telephone: 123456 (string)
 
+## TypeGroup1 
++ id: `BC_ROOT` - code of the group. 
+
+## TypeGroup2 
++ id: `BC_COMM` - code of the group.
+
+## TypeGroup3 
++ id: `BC_ORG` - code of the group. 
+
+## TypeGroup4 
++ id: `BC_CRIPROC` - code of the group. 
+
+## TypeGroup6 
++ id: `BC_SITE` - code of the group. 
+
+## TypeGroup8 
++ id: `BC_ET` - code of the group. 
+
+## TypeGroup9 
++ id: `BC_CRIMAN` - code of the group. 
+
 ## TypeRole
 + description: `COMMITTEE CHAIRMAN`
-+ insertable (boolean)
-+ editable (boolean)
-+ erasable (boolean)
++ editable (boolean) - if the type is editable
 + documentable (boolean) - if the type can have documents attached
-+ movable (boolean)
-+ maxTypeCount (number) - how many nodes of this type can be attached to the tree
-+ maxEntityCount (number) - how many duplicate entities of the same
- department/person of this type can be attached to the tree
++ typeGroup (TypeGroup1) - role's group
 
 ## TypeRole1 (TypeRole)
 + id: BC_CHAIRMA

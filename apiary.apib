@@ -235,7 +235,7 @@ Links a previously created node to the tree.
     + Attributes
         + code: `CMT00002` (string, required) - entity which is being linked
         + description: `BC COMMITTEE 2` (required)
-        + parentId (number, optional)
+        + parentId (number, optional) - id of the parent node
         + nodeType (object) - type of the linked content node. Only the id parameter is considered.
         + revision (object) - revision to which this node belongs to. Only the id parameter is considered.
         + pathInfo - ignored parameter
@@ -353,7 +353,7 @@ When the `nodeType.typeGroup.id` of the node requested is `BC_ORG`.
     + Attributes (Node11Detail)
 
 + Request
-When the `nodeType.id` of the node requested is `BC_CRIPROC`.
+When the `nodeType.typeGroup.id` of the node requested is `BC_CRIPROC`.
 
     + Body
 
@@ -410,7 +410,7 @@ Move the node (and all its children) in the tree.
     + Body
 
 ### Delete Tree Node [DELETE]
-Deletes a node in the tree and all the children nodes.
+Deletes a node in the tree and all the descendant nodes.
 Does not delete the linked entities or the people.
 
 + Parameters
@@ -682,6 +682,8 @@ Takes a `searchQuery` parameter object defined as follows
   + category (optional, string) - code of the category for requested roleupdates
   + linkablechildtype (optional, string) - code of a given linkable child code
   + linkableparenttype (optional, string) - code of a given linkable parent code
+  + insertable (optional, boolean) - flag for filtering on insertable status
+
 
 This action does not require authentication.
 
@@ -795,6 +797,29 @@ Deletes a document.
 
     + Body
 
+#######################
+# Group Profiles
+#######################
+
+API related to search Profiles and get Reports.
+
+## Profiles collection [/profiles{?searchQuery,page,pageSize,sort}]
+
++ Attributes (object)
+  + results (array[Node13, Node14], required) - array of revisions
+  + Include PaginationDataTree2
+
+### List Profiles [GET]
+Returns the profiles list.
+
++ Parameters
+  + searchQuery: {} (object, required) - json filter
+  + page: 1 (optional, number) - The page of results to return
+  + pageSize: 25 (optional, number) - Amount of results to return
+  + sort: description (optional) - Sorting order
+
++ Response 200 (application/json)
+  + Attributes (Profiles collection)
 
 #######################
 # Data Structures
@@ -1086,7 +1111,29 @@ Deletes a document.
     + notes: `notes` (optional, string)
     + code: `C09.1.01` (string)
     + description: `INCIDENT MANAGEMENT` (string)
+   
 
+## Node13 (object)
++ id: 104 (required, number)
++ nodeParent: 880 (required, number)
++ nodeId: 913 (required, number)
++ employeeRole (EmployeeRole7)
++ deptCode: `CMT00001` (required, string)
++ deptDescription: `BC COMMITTEE` (required, string)
++ parentDeptCode: `BCP` (required, string)
++ parentDeptDescription: `BCP` (required, string)
++ Include ProfileListResult3
+
+## Node14 (object)
++ id: 301 (required, number)
++ nodeParent: 880 (required, number)
++ nodeId: 916 (required, number)
++ employeeRole (EmployeeRole8)
++ deptCode: `CMT00001` (required, string)
++ deptDescription: `BC COMMITTEE` (required, string)
++ parentDeptCode: `BCP` (required, string)
++ parentDeptDescription: `BCP` (required, string)
++ Include ProfileListResult3
 
 ## Profile1 (ProfileDetail)
 + id: 1 (number) - id of the profile
@@ -1201,6 +1248,20 @@ Deletes a document.
 + id: `BC_SERVMAN` (required, string)
 + description: `SERVICE MANAGER` (required, string)
 
+## EmployeeRole7 (object)
++ id: `BC_CTMMB03` (required, string)
++ description: `COMMITTEE MEMBER 03` (required, string)
++ editable: `false` (boolean)
++ documentable: `false` (boolean)
++ typeGroup (TypeGroup10)
+
+## EmployeeRole8 (object)
++ id: `BC_CTDLG03` (required, string)
++ description: `COMMITTEE DELEGATE 03` (required, string)
++ editable: `false` (boolean)
++ documentable: `false` (boolean)
++ typeGroup (TypeGroup11)
+
 ## ProfileListResult2 (ProfileBase)
 + nodeParent: 2 (number) - parent's node id
 + nodeId: 6 (number, required) - node id
@@ -1229,6 +1290,13 @@ Deletes a document.
 + fax (object)
     + country: `39` (string)
     + number: `3904912345678` (string)
+
+
+## ProfileListResult3 (ProfileBase)
++ Include ProfilesAddresses
++ businessunit: `BU` (string)
++ jobRole: `test job` (string)
++ managerRole: `false` (boolean)
 
 ## ProfileListResult (ProfileBase)
 + id: 1 (number)
@@ -1335,6 +1403,14 @@ Deletes a document.
 
 ## TypeGroup9 
 + id: `BC_CRIMAN` - code of the group. 
+
+## TypeGroup10 
++ id: `BC_CTMEMB` - code of the group. 
++ description: `COMMITTEE MEMBER` - description of the group
+
+## TypeGroup11
++ id: `BC_CTDLGT` - code of the group. 
++ description: `COMMITTEE DELEGATE` - description of the group
 
 ## TypeRole
 + description: `COMMITTEE CHAIRMAN`

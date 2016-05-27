@@ -813,10 +813,10 @@ API related to search Profiles and get Reports.
 Returns the profiles list.
 
 + Parameters
-  + searchQuery: {} (object, required) - json filter
+  + searchQuery: `{"revision":"1",  "personalcode": "xyz", "repparentdeptcode": "yyyy", "repdeptcode": "xxxx", "reptyperole": "ET_LEADER", "repstrict": false, "firstname": "aaa", "lastname": "bbb"}` (object, required) - json filter
   + page: 1 (optional, number) - The page of results to return
   + pageSize: 25 (optional, number) - Amount of results to return
-  + sort: description (optional) - Sorting order
+  + sort: lastname (optional) - Sorting order
 
 + Response 200 (application/json)
   + Attributes (Profiles collection)

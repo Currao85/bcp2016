@@ -484,6 +484,50 @@ This action does not require authentication.
 
     + Body
 
+## Tree People [/organizations/{structureTypeId}/revisions/{revisionId}/people/{peopleid}]
+
+### Person Roles [GET /organizations/{structureTypeId}/revisions/{revisionId}/people/{peopleid}/roles]
+
+Return all roles of the person with id== **peopleid**.
+
++ Parameters
+    + structureTypeId: BC (string) - Structure type to filter for
+    + revisionId: 1 (required) - id of the requested revision or "active"
+    + peopleid: 1 (required, number) - id of the person
+
++ Response 200 (application/json)
+    + Attributes (object)
+      + paginationData (object)
+          + count: 2,
+          + pageNum: 0
+          + pageSize: 2
+      + results (array) - array of nodes
+          + (object)
+              + revision (object)
+                  + structureType (object)
+                      + id: `BC`
+                      + description: `Business Continuity`
+                  + id: 908
+              + ouName: `BC COMMITTEE`
+              + isManager: false - ignore me!
+              + isMainManager: false - ignore me!
+              + lastName: `Fox Jacqueline`
+          + (object)
+              + revision (object)
+                  + structureType (object)
+                      + id: `BC`
+                      + description: `Business Continuity`
+                  + id: 908
+              + ouName: `INCIDENT MANAGEMENT MOD`
+              + isManager: false - ignore me!
+              + isMainManager: false - ignore me!
+              + lastName: `Fox Jacqueline`
+
++ Response 500
+    Returned when a generic error occours.
+    + Body
+
+
 ###################
 # Group Departments
 ###################

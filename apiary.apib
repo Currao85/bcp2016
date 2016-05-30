@@ -121,7 +121,7 @@ Used to retrieve revision detail.
 This action is available only to `ADMIN` roles.
 
 + Request (application/json)
-  
+
     + Attributes (RevisionMini3)
 
 + Response 200
@@ -156,7 +156,7 @@ This action is available only to `ADMIN` roles.
     Returned when the required resource cannot be found.
 
     + Body
- 
+
 + Response 500
     Returned when a generic error occours.
 
@@ -191,20 +191,21 @@ Returns the revision organization structure tree with assigned people.
 **TODO: WIP - the implementation does not yet receive the searchQuery param.**
 Takes a `searchQuery` parameter object defined as follows
   + revision (required, number) - numeric id of the revision
-  + category (optional, boolean) - code of note type category (DPT,PPL)
+  + category (optional, boolean) - code of node type category (DPT,PPL)
+  + nodecode (optional, string) - code of the node (empid if person)
   + nodetype (optional, string) - node type
   + linkablechildcode (optional, string)
   + linkablechildnode (optional, number)
   + linkablepersondepartments (optional, string)
-  + movable (optional, boolean) 
+  + movable (optional, boolean)
   + erasable (optional, boolean)
   + repparentdeptcode (optional, string)
-  + repdeptcode (optional, string)  
-  + reptyperole (optional, string)  
-  + repdeptstrict (optional, boolean)  
-  + repparentdeptlist (optional, string)  
-  
-  
+  + repdeptcode (optional, string)
+  + reptyperole (optional, string)
+  + repdeptstrict (optional, boolean)
+  + repparentdeptlist (optional, string)
+
+
 This action does not require authentication.
 
 + Parameters
@@ -430,7 +431,7 @@ Does not delete the linked entities or the people.
 
     + Body
 
-    
+
 ## Tree Department collection [/organizations/{structureTypeId}/revisions/{revisionId}/departments/]
 
 ### List Linkable Departments [GET /organizations/{structureTypeId}/revisions/{revisionId}/departments/linkable{?page,sort,pageSize}]
@@ -487,8 +488,8 @@ This action does not require authentication.
 # Group Departments
 ###################
 
-CRUD API used to manage departments. Departments are equivalent to entities, 
-i.e. they are used to *classfiy* nodes in the tree attaching additional 
+CRUD API used to manage departments. Departments are equivalent to entities,
+i.e. they are used to *classfiy* nodes in the tree attaching additional
 informations.
 
 ## Departments collection [/organizations/{structureTypeId}/departments]
@@ -499,9 +500,9 @@ Retrieves a list of departments.
 Takes a `searchQuery` parameter object defined as follows
   + category (optional, string) - category of the required dep
   + type (optional, string) - typerole of the required dep
-  + revision (optional, number) 
+  + revision (optional, number)
   + linkable (optional, boolean)
-  
+
 This action does not require authentication.
 
 + Parameters
@@ -598,7 +599,7 @@ When the department is a `BC_SITE`.
 
 + Response 200 (application/json)
     + Attributes (DepartmentSite1)
-    
+
 + Response 404
     Returned when the required resource cannot be found.
 
@@ -630,7 +631,7 @@ Update a department of type `BC_SITE`.
 
     + Attributes (DepartmentSite1)
 
-    
+
 + Response 400
     Returned when the resource does not pass validation.
 
@@ -640,7 +641,7 @@ Update a department of type `BC_SITE`.
     Returned when a generic error occours.
 
     + Body
-    
+
 + Response 400
     Returned when the resource does not pass validation.
 
@@ -666,7 +667,7 @@ This action can be executed by users with `ADMIN` role.
 
     + Body
 
-    
+
 #######################
 # Group Roles
 #######################
@@ -689,7 +690,7 @@ This action does not require authentication.
 
 + Parameters
   + structTypeId: BC (string) - Structure type to filter for
-  + searchQuery: `{}` 
+  + searchQuery: `{}`
 
 + Attributes (object)
   + results (array[TypeRole1, TypeRole2, TypeRole3], required) - array of nodes
@@ -869,7 +870,7 @@ Returns the profiles list.
 ## RevisionMini3
 + description: `Struttura 1`
 + startdate: `2016-03-01`
-+ enddate: `2016-02-29` 
++ enddate: `2016-02-29`
 + structureType (StructureTypeIdDescr)
 + id: 1
 
@@ -883,7 +884,7 @@ Returns the profiles list.
 ## Revision Detail
 + description: `Struttura 1`
 + startdate: `2016-03-01`
-+ enddate: `2016-02-29` 
++ enddate: `2016-02-29`
 + lastModify: `2016-03-05`
 + status: `active` (enum) - status of the revision
     + active
@@ -908,7 +909,7 @@ Returns the profiles list.
 + nodeType (NodeType1)
 + code: `BCPROOT` (required, string)
 + description: `BCP` (required, string)
-+ pathInfo: `BCP`  
++ pathInfo: `BCP`
 
 ## NodeType1 (object)
 + id: `BC_ROOT` (required, string)
@@ -923,7 +924,7 @@ Returns the profiles list.
 + nodeType (NodeType2)
 + code: `CMT00001` (required, string)
 + description: `BC COMMITTEE` (required, string)
-+ pathInfo: `BCP`  
++ pathInfo: `BCP`
 
 ## NodeType2 (object)
 + id: `BC_COMM` (required, string)
@@ -938,7 +939,7 @@ Returns the profiles list.
 + nodeType (NodeType2)
 + code: `CMT00002` (required, string)
 + description: `BC COMMITTEE 2` (required, string)
-+ pathInfo: `BCP`  
++ pathInfo: `BCP`
 
 ## Node2Detail (Node2)
 + contentDetail (object)
@@ -951,7 +952,7 @@ Returns the profiles list.
 + nodeType (NodeType3)
 + code: `BCORG001` (required, string)
 + description: `BC ORGANIZATION` (required, string)
-+ pathInfo: `BCP`  
++ pathInfo: `BCP`
 
 ## NodeType3 (object)
 + id: `BC_ORG` (required, string)
@@ -967,7 +968,7 @@ Returns the profiles list.
 + nodeType (NodeType3)
 + code: `BCORG002` (required, string)
 + description: `BC ORGANIZATION 2` (required, string)
-+ pathInfo: `BCP`  
++ pathInfo: `BCP`
 
 
 ## Node4 (object)
@@ -976,7 +977,7 @@ Returns the profiles list.
 + nodeType (NodeType4)
 + code: `C09.1.01` (required, string)
 + description: `INCIDENT MANAGEMENT` (required, string)
-+ pathInfo: `BC ORGANIZATION 2`  
++ pathInfo: `BC ORGANIZATION 2`
 
 
 ## NodeType4 (object)
@@ -1111,7 +1112,7 @@ Returns the profiles list.
     + notes: `notes` (optional, string)
     + code: `C09.1.01` (string)
     + description: `INCIDENT MANAGEMENT` (string)
-   
+
 
 ## Node13 (object)
 + id: 104 (required, number)
@@ -1347,7 +1348,7 @@ Returns the profiles list.
 ## Location
 + street: Via Mazzini
 + city: VERONA
-+ country: Italy 
++ country: Italy
 
 ## Location1 (Location)
 + id: 2 (required, number)
@@ -1376,40 +1377,40 @@ Returns the profiles list.
 + notes: `Testo nota` (optional) - additional text
 + typeRoleId: `BC_ET` (required) - type of the department
 
-## Input Site 
+## Input Site
 + code: `ST00002` - code of the site. Must be unique
 + description: `BC SITE 2` (required)
 + typeRoleId: BC_SITE
 + location (Location)
 + telephone: 123456 (string)
 
-## TypeGroup1 
-+ id: `BC_ROOT` - code of the group. 
+## TypeGroup1
++ id: `BC_ROOT` - code of the group.
 
-## TypeGroup2 
+## TypeGroup2
 + id: `BC_COMM` - code of the group.
 
-## TypeGroup3 
-+ id: `BC_ORG` - code of the group. 
+## TypeGroup3
++ id: `BC_ORG` - code of the group.
 
-## TypeGroup4 
-+ id: `BC_CRIPROC` - code of the group. 
+## TypeGroup4
++ id: `BC_CRIPROC` - code of the group.
 
-## TypeGroup6 
-+ id: `BC_SITE` - code of the group. 
+## TypeGroup6
++ id: `BC_SITE` - code of the group.
 
-## TypeGroup8 
-+ id: `BC_ET` - code of the group. 
+## TypeGroup8
++ id: `BC_ET` - code of the group.
 
-## TypeGroup9 
-+ id: `BC_CRIMAN` - code of the group. 
+## TypeGroup9
++ id: `BC_CRIMAN` - code of the group.
 
-## TypeGroup10 
-+ id: `BC_CTMEMB` - code of the group. 
+## TypeGroup10
++ id: `BC_CTMEMB` - code of the group.
 + description: `COMMITTEE MEMBER` - description of the group
 
 ## TypeGroup11
-+ id: `BC_CTDLGT` - code of the group. 
++ id: `BC_CTDLGT` - code of the group.
 + description: `COMMITTEE DELEGATE` - description of the group
 
 ## TypeRole

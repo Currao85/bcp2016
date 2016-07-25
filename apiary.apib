@@ -855,7 +855,7 @@ API related to search Profiles and get Reports.
   + Include PaginationDataTree2
 
 ### List Profiles [GET]
-Returns the profiles list.
+Returns the profiles list. This method is used also to get a profile report, in this case you must set "repstrict" to "true" and "repdeptcodelike" to "false"
 
 + Parameters
   + searchQuery: `{"revision":"1",  "personalcode": "xyz", "repparentdeptcode": "yyyy","repdeptcodelike": true, "repdeptcode": "xxxx", "reptyperole": "ET_LEADER", "repstrict": false, "firstname": "aaa", "lastname": "bbb"}` (object, required) - json filter

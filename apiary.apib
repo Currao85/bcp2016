@@ -1319,11 +1319,11 @@ Returns the profiles list. This method is used also to get a profile report, in 
 ## ProfileBase (object)
 + firstName: `MARIO` (required, string) - First name of the profile. Must be between 2 and 50 chars long.
 + lastName: `BIANCHI` (required, string) - Last name of the profile. Must be between 2 and 50 chars long.
-+ email: `mbianchi@acme.it` (required, string) - Email of the profile. Must be a valid email, as specified in RFC2822.
++ email: `mbianchi@acme.it` (required, string) - Email of the profile. Must be a valid email, as specified in RFC2822. This field must match with the field used to authenticate on the application server.
 + profession: `Senior Developer` (string)
 + altInternetAddress: `firstname.lastname@organization2.com` (string) - Must be a valid email, as specified in RFC2822.
 + notesAddress: `indirizzo_notes@aaaaa.it` (string) - Must be a valid email, as specified in RFC2822.
-+ userId: `userid` (string) - Username of the profile. If present this field must match with the field used to authenticate on the application server.
++ userCode: `usercode` (string) - Username of the profile.
 + personalCode: `X123456` (required, string)
 + phone (object)
     + country: `39` (string)
